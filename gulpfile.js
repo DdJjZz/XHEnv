@@ -14,14 +14,18 @@ var htmlmin = require('gulp-htmlmin');
 var mkdirp = require('mkdirp');
 var replace = require('gulp-replace');
 
+// var replace_content = "D:/webrd/www/dist/usr_img/";
+// var replace_install = "/dist";
+// var option = {
+//     buildPath: "../www/dist"
+// }
 
-
-var replace_content = "D:/webrd/www/dist/usr_img/";
+var replace_content = "C:/wamp/www/dist/usr_img/";
 var replace_install = "/dist";
 var option = {
-
-    buildPath: "../www/dist"
+    buildPath: "C:/wamp/www/dist"
 }
+
 var option_html = {
     collapseWhitespace:true,
     collapseBooleanAttributes:true,
@@ -90,6 +94,12 @@ gulp.task("resourcecopy",function(){
 
 // �ϲ���ѹ���ļ�
 gulp.task('scripts', function() {
+    gulp.src('./js/comm_value.js')
+        .pipe(concat('comm_value.js'))
+        //.pipe(gulp.dest('./dist/js'))
+        .pipe(rename('comm_value.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest(option.buildPath+"/js/"));
     gulp.src('./js/app.js')
         .pipe(concat('app.js'))
         //.pipe(gulp.dest('./dist/js'))
@@ -114,7 +124,24 @@ gulp.task('scripts', function() {
         .pipe(rename('nprogress.js'))
         .pipe(uglify())
         .pipe(gulp.dest(option.buildPath+"/js/"));
-
+    gulp.src('./js/loginout.js')
+        .pipe(concat('loginout.js'))
+        // .pipe(gulp.dest('./dist/js'))
+        .pipe(rename('loginout.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest(option.buildPath+"/js/"));
+    gulp.src('./js/getLocation_js.js')
+        .pipe(concat('getLocation_js.js'))
+        // .pipe(gulp.dest('./dist/js'))
+        .pipe(rename('getLocation_js.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest(option.buildPath+"/js/"));
+    gulp.src('./js/ready_js.js')
+        .pipe(concat('ready_js.js'))
+        // .pipe(gulp.dest('./dist/js'))
+        .pipe(rename('ready_js.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest(option.buildPath+"/js/"));
     gulp.src('./css/Login.css')
        // .pipe(concat('Login.css'))
         .pipe(rename('Login.css'))

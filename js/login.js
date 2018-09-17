@@ -81,25 +81,6 @@ $(document).ready(function() {
             }
         };
         JQ_get(request_head,map,callback);
-
-
-
-        /*
-        jQuery.get(request_head, map, function (data) {
-            var result=JSON.parse(data);
-            if(result.status!="true"){
-                $("#UserAlertModalLabel").text = "警告";
-                $("#UserAlertModalContent").empty();
-                $("#UserAlertModalContent").append("<strong>警告！</strong>"+result.text);
-                modal_middle($('#UserAlarm'));
-                $('#UserAlarm').modal('show') ;
-            }else{
-                setCookie("Environmental.inspection.session",result.key,"m10");
-                jump(result.key);
-            }
-
-        });*/
-
     });
     $("#Forget_Password").on('click',function(){
         jump_to_password_change();

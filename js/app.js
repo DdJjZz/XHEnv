@@ -1,357 +1,337 @@
-
-
-//var request_head= ".request";
-//var jump_url = ".jump";
-
-
-//切换生产环境要更新以下数据，包括logout函数
-var httphead = gethttphead();
-var basic_address = getRelativeURL()+"/";
-console.log(basic_address);
-var wait_time_long =3000;
-var wait_time_middle = 1000;
-var wait_time_short= 500;
-var cycle_time = 60000;
-var show_time = 15000;
-var request_head= basic_address+"request.php";
-var jump_url = basic_address+"jump.php";
-var upload_url=basic_address+"upload.php";
-var screen_saver_address=basic_address+"screensaver/screen.html";
-var show_image_url=basic_address+"imageshow/ImageShow.html";
-var weather_info="";
-var alarm_interval = null;
-var alarm_interval_tab = null;
-function logout(){
-    delCookie("Environmental.inspection.session");
-    window.location=httphead+"//"+window.location.host+basic_address+"login.html";
-
-    /*
-     delCookie("Environmental.inspection.session");
-     var txt = window.location.href;
-     var index =txt.lastIndexOf("/");
-     window.location=txt.substr(0,index)+"/Login.html";
-     */
-}
-
-function video_windows(videoid){
-    window.open(httphead+"//"+window.location.host+basic_address+"/video/video.html?id="+videoid,'监控录像',"height=284, width=340, top=0, left=400,toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no");
-}
-
-function screen_windows(){
-    window.open(httphead+"//"+window.location.host+screen_saver_address+"?id="+usr.id+"&StatCode="+monitor_selected.StatCode,'屏幕保护',"height=auto, width=auto");
-}
+// var httphead = gethttphead();
+// var basic_address = getRelativeURL()+"/";
+// console.log(basic_address);
+// var wait_time_long =3000;
+// var wait_time_middle = 1000;
+// var wait_time_short= 500;
+// var cycle_time = 60000;
+// var show_time = 15000;
+// var request_head= basic_address+"request.php";
+// var jump_url = basic_address+"jump.php";
+// var upload_url=basic_address+"upload.php";
+// var screen_saver_address=basic_address+"screensaver/screen.html";
+// var show_image_url=basic_address+"imageshow/ImageShow.html";
+// var weather_info="";
+// var alarm_interval = null;
+// var alarm_interval_tab = null;
+// function logout(){
+//     delCookie("Environmental.inspection.session");
+//     window.location=httphead+"//"+window.location.host+basic_address+"login.html";
+// }
 //
-
-var ifPPTshow=false;
-var usr;
-usr = "";
-var admin="";
-var keystr="";
-var table_row=5;
-var usr_msg = "";
-var usr_ifdev = "true";
-var usr_img = [];//new Array();
-var usr_favorate_city="";
-//var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
-var current_table;
-var table_head;
-var map_MPMonitor;
-var map_AlarmMonitor;
-var mark_MPMonitor_List=[];
-var map_initialized = false;
-var usr_faverate_list = [];
-// user table control
-var user_initial = false;
-var user_start=0;
-var user_total=0;
-var project_pg_list=null;
-var user_table=null;
-var user_selected;
-var user_selected_auth;
-var user_selected_key;
-var NewUserAuthDual2;
-var user_module_status;
-
-// pg table control
-var pg_initial = false;
-var pg_start=0;
-var pg_total=0;
-var pg_table=null;
-var pg_selected;
-var pg_selected_proj;
-var NewPGProjDual2;
-var pg_module_status;
-var project_list=null;
-
-
-// project table control
-var project_initial = false;
-var project_start=0;
-var project_total=0;
-var project_table=null;
-var project_selected;
-var project_selected_device;
-var project_module_status;
-
-// parameter management
-var parameter_initial = false;
-var software_version_list = null;
-var  if_update_table_initialize = false;
-
-// monitor point table control
-var point_initial = false;
-var point_start=0;
-var point_total=0;
-var point_table=null;
-var point_selected;
-var point_selected_device;
-var point_selected_picture;
-var project_selected_point;
-var project_selected_key;
-var point_module_status;
-
-// device table control
-var point_list=null;
-var device_initial = false;
-var device_start=0;
-var device_total=0;
-var device_table=null;
-var device_selected;
-var device_selected_sensor;
-var device_module_status;
-
-
-
-// key table control
-var key_list=null;
-var proj_user_list=null;
-var key_initial = false;
-var key_start=0;
-var key_total=0;
-var key_table=null;
-var key_selected;
-var key_selected_auth;
-var key_module_status;
-
-//warning Control
-var monitor_map_list = null;
-var monitor_handle;
-var monitor_selected = null;
-var monitor_list = null;
-var monitor_string="";
-var monitor_map_handle=null;
-
-//warning table Control
-var Monitor_table_initialized = false;
-var Monitor_table_start=0;
-var Monitor_table_total=0;
-//warning Static table Control
-var Monitor_Static_table_initialized = true;
-var  if_static_table_initialize = false;
-//key history table Control
-var Key_History_table_initialized = false;
-var  if_key_history_table_initialize = false;
-//key auth Control
-var Key_auth_initialized = false;
-//alarm Control
-var alarm_map_list = null;
-var alarm_type_list = null;
-var alarm_map_initialized = false;
-var alarm_selected = null;
-var alarm_map_handle=null;
-var alarm_array = null;
-
-//alarm handle control
-var Warning_Handle_table_initialized = false;
-var if_Warning_Handle_table_initialize = false;
-
-//Export Control
-var export_table_name = null;
-var if_table_initialize = false;
-
-var Audit_Stability_table_initialized= false;
-var if_audit_stability_table_initialized =false;
-//Sensor Control
-var sensor_list=null;
-var select_sensor_devcode=null;
-var select_sensor = null;
-
-//key module control
-var select_key_auth = null;
-
-
-
-//Camera Control
-var camera_unit_h;
-var camera_unit_v;
-
-var Longitude = null;
-var Latitude = null;
-
-var global_key_word = "";
-getLocation();
-var CURRENT_URL = "desktop",
-    $BODY = $('body'),
-    $MENU_TOGGLE = $('#menu_toggle'),
-    $SIDEBAR_MENU = $('#sidebar-menu'),
-    $SIDEBAR_FOOTER = $('.sidebar-footer'),
-    $LEFT_COL = $('.left_col'),
-    $RIGHT_COL = $('.right_col'),
-    $NAV_MENU = $('.nav_menu'),
-    $FOOTER = $('footer');
-
-// Sidebar
-$(document).ready(function() {
-
-
-
-//cycle button
-    var items = document.querySelectorAll('.cycle-menuItem');
-    console.log("items="+items.length);
-    for(var i = 0, l = items.length; i < l; i++) {
-        items[i].style.left = (50 - 35*Math.cos(-0.5 * Math.PI - 2*(1/l)*i*Math.PI)).toFixed(4) + "%";
-        items[i].style.top = (50 + 35*Math.sin(-0.5 * Math.PI - 2*(1/l)*i*Math.PI)).toFixed(4)-(i+1)*15 + "%";
-    }
-    document.querySelector('.cycle-circle').classList.toggle('open');
-
-//window.onload = function(){
-
-    // TODO: This is some kind of easy fix, maybe we can improve this
-    var setContentHeight = function () {
-        // reset height
-        $RIGHT_COL.css('min-height', $(window).height());
-
-        var bodyHeight = $BODY.outerHeight(),
-            footerHeight = $FOOTER.outerHeight(),
-            leftColHeight = $LEFT_COL.eq(1).height() + $SIDEBAR_FOOTER.height(),
-            contentHeight = bodyHeight < leftColHeight ? leftColHeight : bodyHeight;
-
-        // normalize content
-        contentHeight -= $NAV_MENU.outerHeight() + footerHeight;
-
-        $RIGHT_COL.css('min-height', contentHeight);
-    };
-
-    $SIDEBAR_MENU.find('a').on('click', function(ev) {
-        var $li = $(this).parent();
-
-        if ($li.is('.active')) {
-            $li.removeClass('active active-sm');
-            $('ul:first', $li).slideUp(function() {
-                setContentHeight();
-            });
-        } else {
-            // prevent closing menu if we are on child menu
-            if (!$li.parent().is('.child_menu')) {
-                $SIDEBAR_MENU.find('li').removeClass('active active-sm');
-                $SIDEBAR_MENU.find('li ul').slideUp();
-            }
-
-            $li.addClass('active');
-
-            $('ul:first', $li).slideDown(function() {
-                setContentHeight();
-            });
-        }
-    });
-
-    // toggle small or large menu
-    $MENU_TOGGLE.on('click', function() {
-        if ($BODY.hasClass('nav-md')) {
-            $SIDEBAR_MENU.find('li.active ul').hide();
-            $SIDEBAR_MENU.find('li.active').addClass('active-sm').removeClass('active');
-        } else {
-            $SIDEBAR_MENU.find('li.active-sm ul').show();
-            $SIDEBAR_MENU.find('li.active-sm').addClass('active').removeClass('active-sm');
-        }
-
-        $BODY.toggleClass('nav-md nav-sm');
-
-        setContentHeight();
-    });
-
-    $SIDEBAR_MENU.find('a[href="#"]').on('click',function(){
-            if (!$BODY.hasClass('nav-md')){
-                $(this).parent().parent().slideUp();
-            }
-
-        });
-    // recompute content when resizing
-    $(window).smartresize(function(){
-        setContentHeight();
-    });
-
-    setContentHeight();
-
-    // fixed sidebar
-    if ($.fn.mCustomScrollbar) {
-        $('.menu_fixed').mCustomScrollbar({
-            autoHideScrollbar: true,
-            theme: 'minimal',
-            mouseWheel:{ preventDefault: true }
-        });
-    }
-
-    $(".camerazoom").ionRangeSlider({
-        min: -180,
-        max: 180,
-        grid: true,
-        force_edges: true,
-        onFinish:function(data){
-            var statcode = $("#VideoModuleStatCode_Input").val();
-            var vorh = "z";
-            var value = data.from;
-            move_camera(statcode,vorh,value);
-        }
-    });
-    $(".rtspzoom").ionRangeSlider({
-        min: -10,
-        max: 10,
-        from:0,
-        grid: true,
-        force_edges: true,
-    });
-});
-function write_title(title,sub_titile){
-    $("#page_title").empty();
-    $("#page_title").append("<h3>"+title+" <small>"+sub_titile+"</small></h3>");
-}
-function active_menu(id){
-
-    $SIDEBAR_MENU.find('li.active').addClass('active-sm').removeClass('active');
-
-    $SIDEBAR_MENU.find('li').each(function () {
-        $(this).removeClass('current-page');
-    });
-    $SIDEBAR_MENU.find('a[id="' + id + '"]').parent('li').addClass('current-page');
-}
-(function($,sr){
-    // debouncing function from John Hann
-    // http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
-    var debounce = function (func, threshold, execAsap) {
-        var timeout;
-
-        return function debounced () {
-            var obj = this, args = arguments;
-            function delayed () {
-                if (!execAsap)
-                    func.apply(obj, args);
-                timeout = null;
-            }
-
-            if (timeout)
-                clearTimeout(timeout);
-            else if (execAsap)
-                func.apply(obj, args);
-
-            timeout = setTimeout(delayed, threshold || 100);
-        };
-    };
-
-    // smartresize
-    jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
-
-})(jQuery,'smartresize');
+// function video_windows(videoid){
+//     window.open(httphead+"//"+window.location.host+basic_address+"/video/video.html?id="+videoid,'监控录像',"height=284, width=340, top=0, left=400,toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no");
+// }
+//
+// function screen_windows(){
+//     window.open(httphead+"//"+window.location.host+screen_saver_address+"?id="+usr.id+"&StatCode="+monitor_selected.StatCode,'屏幕保护',"height=auto, width=auto");
+// }
+//
+//
+// var ifPPTshow=false;
+// var usr;
+// usr = "";
+// var admin="";
+// var keystr="";
+// var table_row=5;
+// var usr_msg = "";
+// var usr_ifdev = "true";
+// var usr_img = [];//new Array();
+// var usr_favorate_city="";
+// //var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+// var current_table;
+// var table_head;
+// var map_MPMonitor;
+// var map_AlarmMonitor;
+// var mark_MPMonitor_List=[];
+// var map_initialized = false;
+// var usr_faverate_list = [];
+// // user table control
+// var user_initial = false;
+// var user_start=0;
+// var user_total=0;
+// var project_pg_list=null;
+// var user_table=null;
+// var user_selected;
+// var user_selected_auth;
+// var user_selected_key;
+// var NewUserAuthDual2;
+// var user_module_status;
+//
+// // pg table control
+// var pg_initial = false;
+// var pg_start=0;
+// var pg_total=0;
+// var pg_table=null;
+// var pg_selected;
+// var pg_selected_proj;
+// var NewPGProjDual2;
+// var pg_module_status;
+// var project_list=null;
+//
+//
+// // project table control
+// var project_initial = false;
+// var project_start=0;
+// var project_total=0;
+// var project_table=null;
+// var project_selected;
+// var project_selected_device;
+// var project_module_status;
+//
+// // parameter management
+// var parameter_initial = false;
+// var software_version_list = null;
+// var  if_update_table_initialize = false;
+//
+// // monitor point table control
+// var point_initial = false;
+// var point_start=0;
+// var point_total=0;
+// var point_table=null;
+// var point_selected;
+// var point_selected_device;
+// var point_selected_picture;
+// var project_selected_point;
+// var project_selected_key;
+// var point_module_status;
+//
+// // device table control
+// var point_list=null;
+// var device_initial = false;
+// var device_start=0;
+// var device_total=0;
+// var device_table=null;
+// var device_selected;
+// var device_selected_sensor;
+// var device_module_status;
+//
+//
+//
+// // key table control
+// var key_list=null;
+// var proj_user_list=null;
+// var key_initial = false;
+// var key_start=0;
+// var key_total=0;
+// var key_table=null;
+// var key_selected;
+// var key_selected_auth;
+// var key_module_status;
+//
+// //warning Control
+// var monitor_map_list = null;
+// var monitor_handle;
+// var monitor_selected = null;
+// var monitor_list = null;
+// var monitor_string="";
+// var monitor_map_handle=null;
+//
+// //warning table Control
+// var Monitor_table_initialized = false;
+// var Monitor_table_start=0;
+// var Monitor_table_total=0;
+// //warning Static table Control
+// var Monitor_Static_table_initialized = true;
+// var  if_static_table_initialize = false;
+// //key history table Control
+// var Key_History_table_initialized = false;
+// var  if_key_history_table_initialize = false;
+// //key auth Control
+// var Key_auth_initialized = false;
+// //alarm Control
+// var alarm_map_list = null;
+// var alarm_type_list = null;
+// var alarm_map_initialized = false;
+// var alarm_selected = null;
+// var alarm_map_handle=null;
+// var alarm_array = null;
+//
+// //alarm handle control
+// var Warning_Handle_table_initialized = false;
+// var if_Warning_Handle_table_initialize = false;
+//
+// //Export Control
+// var export_table_name = null;
+// var if_table_initialize = false;
+//
+// var Audit_Stability_table_initialized= false;
+// var if_audit_stability_table_initialized =false;
+// //Sensor Control
+// var sensor_list=null;
+// var select_sensor_devcode=null;
+// var select_sensor = null;
+//
+// //key module control
+// var select_key_auth = null;
+//
+//
+//
+// //Camera Control
+// var camera_unit_h;
+// var camera_unit_v;
+//
+// var Longitude = null;
+// var Latitude = null;
+//
+// var global_key_word = "";
+// getLocation();
+// var CURRENT_URL = "desktop",
+//     $BODY = $('body'),
+//     $MENU_TOGGLE = $('#menu_toggle'),
+//     $SIDEBAR_MENU = $('#sidebar-menu'),
+//     $SIDEBAR_FOOTER = $('.sidebar-footer'),
+//     $LEFT_COL = $('.left_col'),
+//     $RIGHT_COL = $('.right_col'),
+//     $NAV_MENU = $('.nav_menu'),
+//     $FOOTER = $('footer');
+// $(document).ready(function() {
+//     var items = document.querySelectorAll('.cycle-menuItem');
+//     console.log("items="+items.length);
+//     for(var i = 0, l = items.length; i < l; i++) {
+//         items[i].style.left = (50 - 35*Math.cos(-0.5 * Math.PI - 2*(1/l)*i*Math.PI)).toFixed(4) + "%";
+//         items[i].style.top = (50 + 35*Math.sin(-0.5 * Math.PI - 2*(1/l)*i*Math.PI)).toFixed(4)-(i+1)*15 + "%";
+//     }
+//     document.querySelector('.cycle-circle').classList.toggle('open');
+//
+// //window.onload = function(){
+//
+//     // TODO: This is some kind of easy fix, maybe we can improve this
+//     var setContentHeight = function () {
+//         // reset height
+//         $RIGHT_COL.css('min-height', $(window).height());
+//
+//         var bodyHeight = $BODY.outerHeight(),
+//             footerHeight = $FOOTER.outerHeight(),
+//             leftColHeight = $LEFT_COL.eq(1).height() + $SIDEBAR_FOOTER.height(),
+//             contentHeight = bodyHeight < leftColHeight ? leftColHeight : bodyHeight;
+//
+//         // normalize content
+//         contentHeight -= $NAV_MENU.outerHeight() + footerHeight;
+//
+//         $RIGHT_COL.css('min-height', contentHeight);
+//     };
+//
+//     $SIDEBAR_MENU.find('a').on('click', function(ev) {
+//         var $li = $(this).parent();
+//
+//         if ($li.is('.active')) {
+//             $li.removeClass('active active-sm');
+//             $('ul:first', $li).slideUp(function() {
+//                 setContentHeight();
+//             });
+//         } else {
+//             // prevent closing menu if we are on child menu
+//             if (!$li.parent().is('.child_menu')) {
+//                 $SIDEBAR_MENU.find('li').removeClass('active active-sm');
+//                 $SIDEBAR_MENU.find('li ul').slideUp();
+//             }
+//
+//             $li.addClass('active');
+//
+//             $('ul:first', $li).slideDown(function() {
+//                 setContentHeight();
+//             });
+//         }
+//     });
+//
+//     // toggle small or large menu
+//     $MENU_TOGGLE.on('click', function() {
+//         if ($BODY.hasClass('nav-md')) {
+//             $SIDEBAR_MENU.find('li.active ul').hide();
+//             $SIDEBAR_MENU.find('li.active').addClass('active-sm').removeClass('active');
+//         } else {
+//             $SIDEBAR_MENU.find('li.active-sm ul').show();
+//             $SIDEBAR_MENU.find('li.active-sm').addClass('active').removeClass('active-sm');
+//         }
+//
+//         $BODY.toggleClass('nav-md nav-sm');
+//
+//         setContentHeight();
+//     });
+//
+//     $SIDEBAR_MENU.find('a[href="#"]').on('click',function(){
+//             if (!$BODY.hasClass('nav-md')){
+//                 $(this).parent().parent().slideUp();
+//             }
+//
+//         });
+//     // recompute content when resizing
+//     $(window).smartresize(function(){
+//         setContentHeight();
+//     });
+//
+//     setContentHeight();
+//
+//     // fixed sidebar
+//     if ($.fn.mCustomScrollbar) {
+//         $('.menu_fixed').mCustomScrollbar({
+//             autoHideScrollbar: true,
+//             theme: 'minimal',
+//             mouseWheel:{ preventDefault: true }
+//         });
+//     }
+//
+//     $(".camerazoom").ionRangeSlider({
+//         min: -180,
+//         max: 180,
+//         grid: true,
+//         force_edges: true,
+//         onFinish:function(data){
+//             var statcode = $("#VideoModuleStatCode_Input").val();
+//             var vorh = "z";
+//             var value = data.from;
+//             move_camera(statcode,vorh,value);
+//         }
+//     });
+//     $(".rtspzoom").ionRangeSlider({
+//         min: -10,
+//         max: 10,
+//         from:0,
+//         grid: true,
+//         force_edges: true,
+//     });
+// });
+// function write_title(title,sub_titile){
+//     $("#page_title").empty();
+//     $("#page_title").append("<h3>"+title+" <small>"+sub_titile+"</small></h3>");
+// }
+// function active_menu(id){
+//
+//     $SIDEBAR_MENU.find('li.active').addClass('active-sm').removeClass('active');
+//
+//     $SIDEBAR_MENU.find('li').each(function () {
+//         $(this).removeClass('current-page');
+//     });
+//     $SIDEBAR_MENU.find('a[id="' + id + '"]').parent('li').addClass('current-page');
+// }
+// (function($,sr){
+//     // debouncing function from John Hann
+//     // http://unscriptable.com/index.php/2009/03/20/debouncing-javascript-methods/
+//     var debounce = function (func, threshold, execAsap) {
+//         var timeout;
+//
+//         return function debounced () {
+//             var obj = this, args = arguments;
+//             function delayed () {
+//                 if (!execAsap)
+//                     func.apply(obj, args);
+//                 timeout = null;
+//             }
+//
+//             if (timeout)
+//                 clearTimeout(timeout);
+//             else if (execAsap)
+//                 func.apply(obj, args);
+//
+//             timeout = setTimeout(delayed, threshold || 100);
+//         };
+//     };
+//
+//     // smartresize
+//     jQuery.fn[sr] = function(fn){  return fn ? this.bind('resize', debounce(fn)) : this.trigger(sr); };
+//
+// })(jQuery,'smartresize');
 
 /************************************************************************************/
 window.onload = function(){
@@ -438,979 +418,967 @@ function show_expiredModule(){
     modal_middle($('#ExpiredAlarm'));
     $('#ExpiredAlarm').modal('show') ;
 }
-$(document).ready(function() {
-
-    //$.ajaxSetup({
-    //    async : false
-    //});
-    //$(".DevPreEndTime_Input").datetimepicker({format: 'yyyy-mm-dd'});
-    $("[data-toggle='modal']").click(function(){
-        var _target = $(this).attr('data-target');
-        t=setTimeout(function () {
-            var _modal = $(_target).find(".modal-dialog");
-            _modal.animate({'margin-top': parseInt(($(window).height() - _modal.height())/2)}, 300 );
-        },wait_time_short);
-    });
-
-    $('.form_date').datetimepicker({
-        language:  'zh-CN',
-        weekStart: 1,
-        todayBtn:  1,
-        autoclose: 1,
-        todayHighlight: 1,
-        startView: 2,
-        minView: 2,
-        forceParse: 0
-    });
-
-
-
-    NewUserAuthDual2 = $('.NewUserAuthDual').bootstrapDualListbox(
-        { nonSelectedListLabel: '全部项目（组）', selectedListLabel: '用户权限', preserveSelectionOnMove: 'moved', moveOnSelect: true, nonSelectedFilter: '',showFilterInputs: false,infoText:""});
-    $("#showValue").click(function () { alert($('[name="duallistbox_demo1"]').val());});
-
-
-    NewPGProjDual2 = $('.NewPGProjDual').bootstrapDualListbox(
-        { nonSelectedListLabel: '全部项目', selectedListLabel: '本组包含', preserveSelectionOnMove: 'moved', moveOnSelect: true, nonSelectedFilter: '',showFilterInputs: false,infoText:""});
-
-    DevUpdateDual2 = $('.DevUpdateAuthDual').bootstrapDualListbox(
-        { nonSelectedListLabel: '当前设备', selectedListLabel: '需要升级', preserveSelectionOnMove: 'moved', moveOnSelect: true, nonSelectedFilter: '',showFilterInputs: false,infoText:""});
-
-
-
-    // $("#showValue").click(function () { alert($('[name="duallistbox_demo1"]').val());});
-    //$('.user_auth_dual').showFilterInputs=false;
-    $("#Desktop").css("min-height",window.screen.availHeight-300);
-    $("#Undefined").css("min-height",window.screen.availHeight-300);
-
-    //var monitor_handle= setInterval("get_monitor_warning_on_map()", cycle_time);
-    //var monitor_table_handle= setInterval("query_warning()", cycle_time);
-    var monitor_handle= setInterval(get_monitor_warning_on_map, cycle_time);
-    var monitor_table_handle= setInterval(query_warning, cycle_time);
-    var monitor_alarm_handle= setInterval(alarm_cycle, cycle_time);
-    var monitor_pin_handle= setInterval(monitor_cycle, cycle_time);
-    //var monitor_PPT_handle= setInterval(PPTshow, show_time);
-    PageInitialize();
-    $("#menu_logout").on('click',function(){
-        logout();
-
-    });
-    //LEFT menu
-    $("#UserManage").on('click',function(){
-        CURRENT_URL = "UserManage";
-        active_menu("UserManage");
-        touchcookie();
-        user_manager();
-    });
-    $("#KeyManage").on('click',function(){
-        CURRENT_URL = "KeyManage";
-        active_menu("KeyManage");
-        touchcookie();
-        key_manage();
-    });
-    $("#PGManage").on('click',function(){
-        CURRENT_URL = "PGManage";
-        active_menu("PGManage");
-        touchcookie();
-        pg_manage();
-    });
-    $("#ProjManage").on('click',function(){
-        CURRENT_URL = "ProjManage";
-        active_menu("ProjManage");
-        touchcookie();
-        proj_manage();
-    });
-    $("#ParaManage").on('click',function(){
-        CURRENT_URL = "ParaManage";
-        active_menu("ParaManage");
-        touchcookie();
-        para_manage();
-    });
-    $("#MPManage").on('click',function(){
-        CURRENT_URL = "MPManage";
-        active_menu("MPManage");
-        touchcookie();
-        mp_manage();
-    });
-    $("#DevManage").on('click',function(){
-        CURRENT_URL = "DevManage";
-        active_menu("DevManage");
-        touchcookie();
-        dev_manage();
-    });
-    $("#MPMonitor").on('click',function(){
-        CURRENT_URL = "MPMonitor";
-        active_menu("MPMonitor");
-        touchcookie();
-        mp_monitor();
-    });
-    $("#MPMonitorTable").on('click',function(){
-        CURRENT_URL = "MPMonitorTable";
-        active_menu("MPMonitorTable");
-        touchcookie();
-        mp_monitor_table();
-    });
-    $("#MPMonitorCard").on('click',function(){
-        CURRENT_URL = "MPMonitorCard";
-        active_menu("MPMonitorCard");
-        touchcookie();
-        mp_monitor_card();
-    });
-    $("#MPStaticMonitorTable").on('click',function(){
-        CURRENT_URL = "MPStaticMonitorTable";
-        active_menu("MPStaticMonitorTable");
-        touchcookie();
-        mp_static_monitor_table();
-    });
-
-    $("#WarningCheck").on('click',function(){
-        CURRENT_URL = "WarningCheck";
-        active_menu("WarningCheck");
-        touchcookie();
-        warning_check();
-    });
-    $("#WarningHandle").on('click',function(){
-        CURRENT_URL = "WarningHandle";
-        active_menu("WarningHandle");
-        touchcookie();
-        warning_handle();
-    });
-
-    $("#InstConf").on('click',function(){
-        CURRENT_URL = "InstConf";
-        active_menu("InstConf");
-        touchcookie();
-        Inst_Conf();
-    });
-    $("#InstRead").on('click',function(){
-        CURRENT_URL = "InstRead";
-        active_menu("InstRead");
-
-        touchcookie();
-        Inst_Read();
-    });
-    $("#InstDesign").on('click',function(){
-        CURRENT_URL = "InstDesign";
-        active_menu("InstDesign");
-        touchcookie();
-        Inst_Design();
-    });
-    $("#InstControl").on('click',function(){
-        CURRENT_URL = "InstControl";
-        active_menu("InstControl");
-        touchcookie();
-        Inst_Control();
-    });
-    $("#InstSnapshot").on('click',function(){
-        CURRENT_URL = "InstSnapshot";
-        active_menu("InstSnapshot");
-        touchcookie();
-        Inst_Snapshot();
-    });
-    $("#InstVideo").on('click',function(){
-        CURRENT_URL = "InstVideo";
-        active_menu("InstVideo");
-        touchcookie();
-        Inst_Video();
-    });
-    $("#AuditTarget").on('click',function(){
-        CURRENT_URL = "AuditTarget";
-        active_menu("AuditTarget");
-        touchcookie();
-        Audit_Target();
-    });
-    $("#AuditStability").on('click',function(){
-        CURRENT_URL = "AuditStability";
-        active_menu("AuditStability");
-        touchcookie();
-        Audit_Stability();
-    });
-    $("#AuditAvailability").on('click',function(){
-        CURRENT_URL = "AuditAvailability";
-        active_menu("AuditAvailability");
-        touchcookie();
-        Audit_Availability();
-    });
-    $("#AuditError").on('click',function(){
-        CURRENT_URL = "AuditError";
-        active_menu("AuditError");
-        touchcookie();
-        Audit_Error();
-    });
-    $("#AuditQuality").on('click',function(){
-        CURRENT_URL = "AuditQuality";
-        active_menu("AuditQuality");
-        touchcookie();
-        Audit_Quality();
-    });
-    $("#GeoInfoQuery").on('click',function(){
-        CURRENT_URL = "GeoInfoQuery";
-        active_menu("GeoInfoQuery");
-        touchcookie();
-        Geo_InfoQuery();
-    });
-    $("#GeoTrendAnalysis").on('click',function(){
-        CURRENT_URL = "GeoTrendAnalysis";
-        active_menu("GeoTrendAnalysis");
-        touchcookie();
-        Geo_TrendAnalysis();
-    });
-    $("#GeoDisaterForecast").on('click',function(){
-        CURRENT_URL = "GeoDisaterForecast";
-        active_menu("GeoDisaterForecast");
-        touchcookie();
-        Geo_DisaterForecast();
-    });
-    $("#GeoEmergencyDirect").on('click',function(){
-        CURRENT_URL = "GeoEmergencyDirect";
-        active_menu("GeoEmergencyDirect");
-        touchcookie();
-        Geo_EmergencyDirect();
-    });
-    $("#GeoDiffusionAnalysis").on('click',function(){
-        CURRENT_URL = "GeoDiffusionAnalysis";
-        active_menu("GeoDiffusionAnalysis");
-        touchcookie();
-        Geo_DiffusionAnalysis();
-    });
-    $("#WorkflowDesign").on('click',function(){
-        CURRENT_URL = "WorkflowDesign";
-        active_menu("WorkflowDesign");
-        touchcookie();
-        Work_flowDesign();
-    });
-    $("#OrderManagement").on('click',function(){
-        CURRENT_URL = "OrderManagement";
-        active_menu("OrderManagement");
-        touchcookie();
-        Order_Management();
-    });
-    $("#UnloadingManagement").on('click',function(){
-        CURRENT_URL = "UnloadingManagement";
-        active_menu("UnloadingManagement");
-        touchcookie();
-        Unloading_Management();
-    });
-    $("#OrderAudit").on('click',function(){
-        CURRENT_URL = "OrderAudit";
-        active_menu("OrderAudit");
-        touchcookie();
-        Order_Audit();
-    });
-    $("#ADConf").on('click',function(){
-        CURRENT_URL = "ADConf";
-        active_menu("ADConf");
-        touchcookie();
-        AD_Conf();
-    });
-    $("#WEBConf").on('click',function(){
-        CURRENT_URL = "WEBConf";
-        active_menu("WEBConf");
-        touchcookie();
-        WEB_Conf();
-    });
-    $("#KeyManage").on('click',function(){
-        CURRENT_URL = "KeyManage";
-        active_menu("KeyManage");
-        touchcookie();
-        key_manage();
-        //KEY_Manage();
-    });
-    $("#KeyAuth").on('click',function(){
-        CURRENT_URL = "KeyAuth";
-        active_menu("KeyAuth");
-        touchcookie();
-        key_auth();
-    });
-    $("#KeyHistory").on('click',function(){
-        CURRENT_URL = "KeyHistory";
-        active_menu("KeyHistory");
-        touchcookie();
-        key_history();
-    });
-
-
-
-    //user view buttons
-    $("#UserfreshButton").on('click',function(){
-        touchcookie();
-        clear_user_detail_panel();
-        user_intialize(0);
-    });
-    $("#UserExportButton").on('click',function(){
-        touchcookie();
-        //alert("Not support yet");
-        var condition_user = [];//new Array();
-        var temp ={
-            ConditonName: "UserId",
-            Equal:usr.id,
-            GEQ:"",
-            LEQ:""
-        };
-        condition_user.push(temp);
-        Data_export_Normal("用户表导出","usertable",condition_user,[]);
-    });
-    $("#UserNewButton").on('click',function(){
-        touchcookie();
-        show_new_user_module();
-    });
-    $("#UserDelButton").on('click',function(){
-        touchcookie();
-        if(user_selected === null){
-            show_alarm_module(true,"请选择一个用户",null);
-        }else{
-            modal_middle($('#UserDelAlarm'));
-            $('#UserDelAlarm').modal('show');
-        }
-    });
-    $("#UserModifyButton").on('click',function(){
-        touchcookie();
-        if(user_selected === null){
-            show_alarm_module(true,"请选择一个用户",null);
-        }else{
-            show_mod_user_module(user_selected,user_selected_auth);
-        }
-    });
-    $("#delUserCommit").on('click',function(){
-        del_user(user_selected.id);
-        touchcookie();
-    });
-    $("#newUserCommit").on('click',function(){
-        if(user_module_status){
-            submit_new_user_module();
-            touchcookie();
-        }else{
-            submit_mod_user_module();
-            touchcookie();
-        }
-    });
-    //pg view buttons
-    $("#PGfreshButton").on('click',function(){
-        touchcookie();
-        clear_pg_detail_panel();
-        pg_intialize(0);
-    });
-    $("#PGExportButton").on('click',function(){
-        touchcookie();
-        var condition_user = [];//new Array();
-        var temp ={
-            ConditonName: "UserId",
-            Equal:usr.id,
-            GEQ:"",
-            LEQ:""
-        };
-        condition_user.push(temp);
-        Data_export_Normal("项目组表导出","PGtable",condition_user,[]);//new Array());
-    });
-    $("#PGNewButton").on('click',function(){
-        touchcookie();
-        show_new_pg_module();
-    });
-    $("#PGDelButton").on('click',function(){
-        touchcookie();
-        if(pg_selected === null){
-            show_alarm_module(true,"请选择一个项目组",null);
-        }else{
-            modal_middle($('#PGDelAlarm'));
-            $('#PGDelAlarm').modal('show');
-        }
-    });
-    $("#PGModifyButton").on('click',function(){
-        touchcookie();
-        if(pg_selected === null){
-            show_alarm_module(true,"请选择一个项目组",null);
-        }else{
-            show_mod_pg_module(pg_selected,pg_selected_proj);
-        }
-    });
-    $("#delPGCommit").on('click',function(){
-        //发送请求并且告知成功失败
-        //刷新表格
-        del_pg(pg_selected.PGCode);
-        touchcookie();
-    });
-    $("#newPGCommit").on('click',function(){
-        //检查输入项目
-        //发送请求
-        //刷新表格
-        if(pg_module_status){
-            submit_new_pg_module();
-            touchcookie();
-        }else{
-            submit_mod_pg_module();
-            touchcookie();
-        }
-    });
-// project view buttons
-
-
-    $("#ProjfreshButton").on('click',function(){
-        touchcookie();
-        clear_proj_detail_panel();
-        proj_intialize(0);
-    });
-    $("#ProjExportButton").on('click',function(){
-        touchcookie();
-        var condition_user = [];//new Array();
-        var temp ={
-            ConditonName: "UserId",
-            Equal:usr.id,
-            GEQ:"",
-            LEQ:""
-        };
-        condition_user.push(temp);
-        Data_export_Normal("项目表导出","Projtable",condition_user,[]);//new Array());
-    });
-    $("#ProjNewButton").on('click',function(){
-        touchcookie();
-        show_new_proj_module();
-    });
-    $("#ProjDelButton").on('click',function(){
-        touchcookie();
-        if(project_selected === null){
-            show_alarm_module(true,"请选择一个项目",null);
-        }else{
-            modal_middle($('#ProjDelAlarm'));
-            $('#ProjDelAlarm').modal('show');
-        }
-    });
-    $("#ProjModifyButton").on('click',function(){
-        touchcookie();
-        if(project_selected === null){
-            show_alarm_module(true,"请选择一个项目",null);
-        }else{
-            show_mod_proj_module(project_selected);
-        }
-    });
-    $("#delProjCommit").on('click',function(){
-        //发送请求并且告知成功失败
-        //刷新表格
-        del_proj(project_selected.ProjCode);
-        touchcookie();
-    });
-    $("#newProjCommit").on('click',function(){
-        //检查输入项目
-        //发送请求
-        //刷新表格
-        if(project_module_status){
-            submit_new_proj_module();
-            touchcookie();
-        }else{
-            submit_mod_proj_module();
-
-            touchcookie();
-        }
-    });
-
-    //MP view buttons
-    $("#PointfreshButton").on('click',function(){
-        touchcookie();
-        clear_point_detail_panel();
-        point_intialize(0);
-    });
-    $("#PointExportButton").on('click',function(){
-        touchcookie();
-        var condition_user = [];// new Array();
-        var temp ={
-            ConditonName: "UserId",
-            Equal:usr.id,
-            GEQ:"",
-            LEQ:""
-        };
-        condition_user.push(temp);
-        Data_export_Normal("站点导出","Pointtable",condition_user,[]);//new Array());
-    });
-    $("#PointNewButton").on('click',function(){
-        touchcookie();
-        show_new_point_module();
-    });
-    $("#PointDelButton").on('click',function(){
-        touchcookie();
-        if(point_selected === null){
-            show_alarm_module(true,"请选择一个站点",null);
-        }else{
-            modal_middle($('#PointDelAlarm'));
-            $('#PointDelAlarm').modal('show');
-        }
-    });
-    $("#PointModifyButton").on('click',function(){
-        touchcookie();
-        if(point_selected === null){
-            show_alarm_module(true,"请选择一个站点",null);
-        }else{
-            show_mod_point_module(point_selected);
-        }
-    });
-    $("#delPointCommit").on('click',function(){
-        //发送请求并且告知成功失败
-        //刷新表格
-        del_point(point_selected.StatCode);
-        touchcookie();
-    });
-    $("#newPointCommit").on('click',function(){
-        //检查输入项目
-        //发送请求
-        //刷新表格
-        if(point_module_status){
-            submit_new_point_module();
-            touchcookie();
-        }else{
-            submit_mod_point_module();
-
-            touchcookie();
-        }
-    });
-
-
-// device view buttons
-    $("#DevfreshButton").on('click',function(){
-        touchcookie();
-        clear_dev_detail_panel();
-        dev_intialize(0);
-    });
-    $("#DevExportButton").on('click',function(){
-        touchcookie();
-        var condition_user = [];//new Array();
-        var temp ={
-            ConditonName: "UserId",
-            Equal:usr.id,
-            GEQ:"",
-            LEQ:""
-        };
-        condition_user.push(temp);
-        Data_export_Normal("设备表导出","Devtable",condition_user,[]);//new Array());
-    });
-    $("#DevNewButton").on('click',function(){
-        touchcookie();
-        show_new_dev_module();
-    });
-    $("#DevDelButton").on('click',function(){
-        touchcookie();
-        if(device_selected === null){
-            show_alarm_module(true,"请选择一个设备",null);
-        }else{
-            modal_middle($('#DevDelAlarm'));
-            $('#DevDelAlarm').modal('show');
-        }
-    });
-    $("#DevModifyButton").on('click',function(){
-        touchcookie();
-        if(device_selected === null){
-            show_alarm_module(true,"请选择一个设备",null);
-        }else{
-            show_mod_dev_module(device_selected);
-        }
-    });
-    $("#delDevCommit").on('click',function(){
-        //发送请求并且告知成功失败
-        //刷新表格
-        del_dev(device_selected.DevCode);
-        touchcookie();
-    });
-    $("#newDevCommit").on('click',function(){
-        //检查输入项目
-        //发送请求
-        //刷新表格
-        if(device_module_status){
-            submit_new_dev_module();
-            touchcookie();
-        }else{
-            submit_mod_dev_module();
-
-            touchcookie();
-        }
-    });
-
-    $("#DevProjCode_choice").change(function(){
-        get_proj_point_option($("#DevProjCode_choice").val(),$("#DevStatCode_choice"),"");
-    });
-    $("#QueryProjCode_choice").change(function(){
-        get_proj_point_option($("#QueryProjCode_choice").val(),$("#QueryStatCode_choice"),"");
-    });
-    $("#AlarmQueryCommit").on('click',function(){
-
-        touchcookie();
-        if(alarm_selected === null){
-            $("#WCStatCode_Input").attr("placeholder","请先在地图上选择一个点");
-            return;
-        }
-
-        if($("#Alarm_query_Input").val()==="" || $("#Alarm_query_Input").val() === null){
-            $("#Alarm_query_Input").attr("placeholder","请输入日期");
-            return;
-        }
-
-        if(alarm_type_list!== null){
-            unhide_all_chart();
-            for(var i=0;i<alarm_type_list.length;i++){
-                query_alarm($("#Alarm_query_Input").val(),alarm_type_list[i].id,alarm_type_list[i].name);
-            }
-        }
-        //window.setTimeout(show_table_tags, wait_time_long);
-
-
-    });
-    $('#Alarm_query_choice').change(function(){
-        var temp = $(this).val();
-        if(temp === "0"){
-            $("#Alarm_query_Input2").val("");
-            $("#Alarm_date_button").css("display","none");
-            $("#Alarm_chart_view2").css('display','none');
-            $("#Alarm_chart_realtime_view2").css('display','block');
-        }else{
-            $("#Alarm_date_button").css("display","block");
-
-            $("#Alarm_chart_view2").css('display','block');
-            $("#Alarm_chart_realtime_view2").css('display','none');
-        }
-    });
-    $("#AlarmQueryCommit2").on('click',function(){
-
-        touchcookie();
-        if(alarm_selected === null){
-            $("#WCStatCode_Input2").attr("placeholder","请先在地图上选择一个点");
-            return;
-        }
-        var temp = $('#Alarm_query_choice').val();
-        if(temp === "1"){
-            if($("#Alarm_query_Input2").val()==="" || $("#Alarm_query_Input2").val() === null){
-                $("#Alarm_query_Input2").attr("placeholder","请输入日期");
-                return;
-            }
-        }
-        var i;
-        if(alarm_type_list!== null&temp === "1"){
-            unhide_all_chart();
-            alarm_interval_tab = null;
-            if(alarm_interval!== null){ clearInterval(alarm_interval);alarm_interval= null;}
-            for(i=0;i<alarm_type_list.length;i++){
-                query_alarm2($("#Alarm_query_Input2").val(),alarm_type_list[i].id,alarm_type_list[i].name);
-            }
-        }else{
-            unhide_all_chart();
-            alarm_interval_tab = null;
-            if(alarm_interval!== null){ clearInterval(alarm_interval);}
-            for(i=0;i<alarm_type_list.length;i++){
-                query_alarm3(alarm_type_list[i].id,alarm_type_list[i].name);
-            }
-            alarm_interval = setInterval(function(){
-                for(i=0;i<alarm_type_list.length;i++){
-                    query_alarm3(alarm_type_list[i].id,alarm_type_list[i].name);
-                }
-            },cycle_time);
-        }
-
-
-    });
-    $("#Video_query_Input").change(function(){
-        $("#Video_query_Input").val(date_compare_today($("#Video_query_Input").val()));
-        video_selection_change();
-    });
-    $("#VideoHour_choice").change(function(){
-        video_selection_change();
-    });
-    $("#VideoModuleHour_choice").change(function(){
-        video_Module_selection_change();
-    });
-    $("#VideoModule_query_Input").change(function(){
-        video_Module_selection_change();
-    });
-    $("#Alarm_query_Input").change(function(){
-        $("#Alarm_query_Input").val(date_compare_today($("#Alarm_query_Input").val()));
-    });
-    $("#Alarm_query_Input2").change(function(){
-        $("#Alarm_query_Input2").val(date_compare_today($("#Alarm_query_Input2").val()));
-    });
-    $("#AlarmExport").on('click',function() {
-        touchcookie();
-        Data_export_alarm();
-    });
-    $("#AlarmExport2").on('click',function() {
-        touchcookie();
-        Data_export_alarm2();
-    });
-    $("#AlarmQuery_Commit").on('click',function() {
-        touchcookie();
-        submit_alarm_query();
-    });
-    $("#SensorUpdateCommit").on('click',function() {
-        touchcookie();
-        submit_sensor_module();
-    });
-    $("#ExpiredConfirm").on('click',function() {
-        logout();
-    });
-    $("#QueryStartTime_Input").change(function(){
-        $("#QueryStartTime_Input").val(date_compare_today($("#QueryStartTime_Input").val()));
-        if( $("#QueryEndTime_Input").val()===""){
-            $("#QueryEndTime_Input").val($("#QueryStartTime_Input").val());
-        }else{
-            $("#QueryEndTime_Input").val(date_compare($("#QueryEndTime_Input").val(),$("#QueryStartTime_Input").val()));
-        }
-    });
-    $("#QueryEndTime_Input").change(function(){
-        if( $("#QueryStartTime_Input").val()==="") {
-            $("#QueryEndTime_Input").val(date_compare_today($("#QueryEndTime_Input").val()));
-            $("#QueryStartTime_Input").val($("#QueryStartTime_Input").val());
-        }else{
-            $("#QueryEndTime_Input").val(date_compare($("#QueryEndTime_Input").val(),$("#QueryStartTime_Input").val()));
-        }
-    });
-    $("#VCRshow").on('click',function() {
-        var vcraddress = $("#VCRStatus_choice").val();
-        if(vcraddress === "") return;
-        video_windows(vcraddress);
-    });
-    $("#VideoWindow").on('click',function() {
-        if(monitor_selected === null) return;
-        get_camera_and_video_web(monitor_selected.StatCode,false,true);
-    });
-    $("#CameraWindow").on('click',function() {
-        if(monitor_selected === null) return;
-        get_camera_and_video_web(monitor_selected.StatCode,true,false);
-    });
-	$("#ModuleVCRshow").on('click',function() {
-        var vcraddress = $("#ModuleVCRStatus_choice").val();
-        if(vcraddress === "") return;
-        window.open(httphead+"//"+vcraddress,'监控照片',"height=480, width=640, top=0, left=400,toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no");
-    });
-    $("#ModuleVCRreset").on('click',function() {
-        reset_camera($("#VideoModuleStatCode_Input").val());
-    });
-    $("#MonitorTableFlash").on('click',function() {
-        query_static_warning();
-    });
-    $("#WarningHandleTableFlash").on('click',function() {
-        query_warning_handle_list();
-    });
-    $("#AuditStabilityFlash").on('click',function() {
-        query_audit_stability();
-    });
-
-    $("#menu_user_profile").on('click',function() {
-        touchcookie();
-        show_usr_msg_module();
-    });
-    $("#ScreenSaver").on('click',function() {
-        if(monitor_selected === null) return;
-        screen_windows();
-    });
-    $("#UsrMsgCommit").on('click',function() {
-        touchcookie();
-        user_message_update();
-    });
-
-    $("#UsrImgClean").on('click',function() {
-        touchcookie();
-        clear_user_image();
-    });
-    $("#UsrImgFlash").on('click',function() {
-        touchcookie();
-        get_user_image();
-    });
-    $("#UpdateConfirm_button").on('click',function() {
-        touchcookie();
-        update_version();
-    });
-	$("#btn_camera_up").on('click',function() {
-		var camera_state_code = $('#VideoModuleStatCode_Input').val();
-		if(camera_state_code!==undefined && camera_state_code!==""){
-			move_camera(camera_state_code,"v","1");
-		}
-    });
-	$("#btn_camera_down").on('click',function() {
-		var camera_state_code = $('#VideoModuleStatCode_Input').val();
-		if(camera_state_code!==undefined && camera_state_code!==""){
-			move_camera(camera_state_code,"v","-1");
-		}
-    });
-	$("#btn_camera_right").on('click',function() {
-		var camera_state_code = $('#VideoModuleStatCode_Input').val();
-		if(camera_state_code!==undefined && camera_state_code!==""){
-			move_camera(camera_state_code,"h","1");
-		}
-    });
-	$("#btn_camera_left").on('click',function() {
-		var camera_state_code = $('#VideoModuleStatCode_Input').val();
-		if(camera_state_code!==undefined && camera_state_code!==""){
-			move_camera(camera_state_code,"h","-1");
-		}
-    });
-    $(".lock_monitor_btn").on('click',function() {
-        monitor_lock();
-    });
-    $('#UnlockConfirmBtn').on('click',function() {
-        var statcode = $(this).attr("StateCode");
-        //console.log("["+statcode+"]");
-        if(statcode!==undefined&&statcode!=="" ){
-            openlock(statcode);
-        }
-    });
-    $('.keyrow').on('click',function() {
-        var keyid = $(this).attr("id");
-        if(keyid!==undefined&&keyid!=="" ){
-            get_key_auth_list(keyid);
-        }
-    });
-
-
-// key view buttons
-    $("#KeyfreshButton").on('click',function(){
-        touchcookie();
-        clear_key_detail_panel();
-        key_intialize(0);
-    });
-    $("#KeyExportButton").on('click',function(){
-        touchcookie();
-        var condition_user = [];//new Array();
-        var temp ={
-            ConditonName: "UserId",
-            Equal:usr.id,
-            GEQ:"",
-            LEQ:""
-        };
-        condition_user.push(temp);
-        Data_export_Normal("钥匙表导出","keytable",condition_user,[]);//new Array());
-    });
-    $("#KeyNewButton").on('click',function(){
-        touchcookie();
-        show_new_key_module();
-    });
-    $("#KeyDelButton").on('click',function(){
-        touchcookie();
-        if(key_selected === null){
-            show_alarm_module(true,"请选择一把钥匙",null);
-        }else{
-            modal_middle($('#KeyDelAlarm'));
-            $('#KeyDelAlarm').modal('show');
-        }
-    });
-    $("#KeyModifyButton").on('click',function(){
-        touchcookie();
-        if(key_selected === null){
-            show_alarm_module(true,"请选择一把钥匙",null);
-        }else{
-            show_mod_key_module(key_selected);
-        }
-    });
-    $("#delKeyCommit").on('click',function(){
-        //发送请求并且告知成功失败
-        //刷新表格
-        del_key(key_selected.KeyCode);
-        touchcookie();
-    });
-    $("#newKeyCommit").on('click',function(){
-        //检查输入项目
-        //发送请求
-        //刷新表格
-        if(key_module_status){
-            submit_new_key_module();
-            touchcookie();
-        }else{
-            submit_mod_key_module();
-            touchcookie();
-        }
-    });
-    $("#KeyHistoryTableFlash").on('click',function(){
-        query_open_lock_history();
-
-        touchcookie();
-    });
-	$("#KeyAuthQuery").on('click',function(){
-		get_domain_auth_list($("#KeyAuthPoint_choice").val());
-        touchcookie();
-    });
-	$("#KeyAuthNew").on('click',function(){
-        show_auth_new_module($("#KeyAuthProj_choice").val(),$("#KeyAuthPoint_choice").val(),$("#KeyAuthPoint_choice").find("option:selected").text());
-        touchcookie();
-    });
-	$("#KeyUserChange").on('click',function(){
-		show_key_grant_module($("#KeyUserKey_choice").val(),$("#KeyUserUser_choice").val(),$("#KeyUserKey_choice").find("option:selected").text(),$("#KeyUserUser_choice").find("option:selected").text());
-        touchcookie();
-    });
-	$("#delKeyAuthCommit").on('click',function(){
-		//console.log("click"+$(this).attr("AuthId"));
-		$('#KeyAuthDelAlarm').modal('hide');
-		key_auth_delete($(this).attr("AuthId"));
-        touchcookie();
-    });
-    $("#newKeyAuthCommit").on('click',function(){
-        click_new_key_auch_commit();
-		touchcookie();
-    });
-	$("#NewKeyAuthEndTime_Input").change(function(){
-        $("#NewKeyAuthEndTime_Input").val(check_key_auth_date($(this).val()));
-    });
-	$("#KeyGrantCommit").on('click',function(){
-		$('#KeyGrantAlarm').modal('hide');
-        click_key_grant_commit($(this).attr("KeyId"),$(this).attr("UserId"));
-    });
-
-    $("#AlarmHandleUpdateCommit").on('click',function(){
-        AlarmHandleUpdateCommit_button_commit();
-    });
-    $("#CommonQueryCommit").on('click',function(){
-        if(global_key_word == $("#CommonQueryInput").val()) return;
-        global_key_word = $("#CommonQueryInput").val();
-        switch (CURRENT_URL){
-            case "UserManage":
-                user_intialize(0);
-                break;
-            case "KeyManage":
-                key_intialize(0);
-                break;
-            case "PGManage":
-                pg_intialize(0);
-                break;
-            case "ProjManage":
-                proj_intialize(0);
-                break;
-            case "MPManage":
-                point_intialize(0);
-                break;
-            case "DevManage":
-                dev_intialize(0);
-                break;
-            default:
-
-                break;
-        }
-        return;
-    });
-
-    $("#RTSPHistoryshow").on('click',function(){
-
-        var dateRTSP = new Date($("#RTSPHistoryAlarmTime_Input").val());
-        dateRTSP = date_addminutes(dateRTSP,parseInt($("#rtsp_zoom").val()));
-        var alarmstart = dateRTSP.Format("yyyyMMddThhmmss");
-
-        dateRTSP = date_addminutes(dateRTSP,1);
-
-        var alarmend = dateRTSP.Format("yyyyMMddThhmmss");
-        var href = $(this).attr("data-url")+"?starttime="+alarmstart+"Z&endtime="+alarmend+"Z";
-        console.log(href);
-        window.location.href = href;
-
-    });
-    $("#DevCaliButton").on('click',function(){
-        if(device_selected === null) return;
-        getdevcali(device_selected.DevCode);
-    });
-    $("#DeviceCalibrationTableCommit").on('click',function(){
-        setdevcali(device_selected.DevCode);
-    });
-    clear_window();
-    desktop();
-    calculate_row();
-    clear_user_detail_panel();
-    clear_proj_detail_panel();
-
-
-
-
-    $(window).resize();
-
-});
+// $(document).ready(function() {
+//     $("[data-toggle='modal']").click(function(){
+//         var _target = $(this).attr('data-target');
+//         t=setTimeout(function () {
+//             var _modal = $(_target).find(".modal-dialog");
+//             _modal.animate({'margin-top': parseInt(($(window).height() - _modal.height())/2)}, 300 );
+//         },wait_time_short);
+//     });
+//
+//     $('.form_date').datetimepicker({
+//         language:  'zh-CN',
+//         weekStart: 1,
+//         todayBtn:  1,
+//         autoclose: 1,
+//         todayHighlight: 1,
+//         startView: 2,
+//         minView: 2,
+//         forceParse: 0
+//     });
+//
+//
+//
+//     NewUserAuthDual2 = $('.NewUserAuthDual').bootstrapDualListbox(
+//         { nonSelectedListLabel: '全部项目（组）', selectedListLabel: '用户权限', preserveSelectionOnMove: 'moved', moveOnSelect: true, nonSelectedFilter: '',showFilterInputs: false,infoText:""});
+//     $("#showValue").click(function () { alert($('[name="duallistbox_demo1"]').val());});
+//
+//
+//     NewPGProjDual2 = $('.NewPGProjDual').bootstrapDualListbox(
+//         { nonSelectedListLabel: '全部项目', selectedListLabel: '本组包含', preserveSelectionOnMove: 'moved', moveOnSelect: true, nonSelectedFilter: '',showFilterInputs: false,infoText:""});
+//
+//     DevUpdateDual2 = $('.DevUpdateAuthDual').bootstrapDualListbox(
+//         { nonSelectedListLabel: '当前设备', selectedListLabel: '需要升级', preserveSelectionOnMove: 'moved', moveOnSelect: true, nonSelectedFilter: '',showFilterInputs: false,infoText:""});
+//
+//     $("#Desktop").css("min-height",window.screen.availHeight-300);
+//     $("#Undefined").css("min-height",window.screen.availHeight-300);
+//
+//     var monitor_handle= setInterval(get_monitor_warning_on_map, cycle_time);
+//     var monitor_table_handle= setInterval(query_warning, cycle_time);
+//     var monitor_alarm_handle= setInterval(alarm_cycle, cycle_time);
+//     var monitor_pin_handle= setInterval(monitor_cycle, cycle_time);
+//     //var monitor_PPT_handle= setInterval(PPTshow, show_time);
+//     PageInitialize();
+//     $("#menu_logout").on('click',function(){
+//         logout();
+//     });
+//     //LEFT menu
+//     $("#UserManage").on('click',function(){
+//         CURRENT_URL = "UserManage";
+//         active_menu("UserManage");
+//         touchcookie();
+//         user_manager();
+//     });
+//     $("#KeyManage").on('click',function(){
+//         CURRENT_URL = "KeyManage";
+//         active_menu("KeyManage");
+//         touchcookie();
+//         key_manage();
+//     });
+//     $("#PGManage").on('click',function(){
+//         CURRENT_URL = "PGManage";
+//         active_menu("PGManage");
+//         touchcookie();
+//         pg_manage();
+//     });
+//     $("#ProjManage").on('click',function(){
+//         CURRENT_URL = "ProjManage";
+//         active_menu("ProjManage");
+//         touchcookie();
+//         proj_manage();
+//     });
+//     $("#ParaManage").on('click',function(){
+//         CURRENT_URL = "ParaManage";
+//         active_menu("ParaManage");
+//         touchcookie();
+//         para_manage();
+//     });
+//     $("#MPManage").on('click',function(){
+//         CURRENT_URL = "MPManage";
+//         active_menu("MPManage");
+//         touchcookie();
+//         mp_manage();
+//     });
+//     $("#DevManage").on('click',function(){
+//         CURRENT_URL = "DevManage";
+//         active_menu("DevManage");
+//         touchcookie();
+//         dev_manage();
+//     });
+//     $("#MPMonitor").on('click',function(){
+//         CURRENT_URL = "MPMonitor";
+//         active_menu("MPMonitor");
+//         touchcookie();
+//         mp_monitor();
+//     });
+//     $("#MPMonitorTable").on('click',function(){
+//         CURRENT_URL = "MPMonitorTable";
+//         active_menu("MPMonitorTable");
+//         touchcookie();
+//         mp_monitor_table();
+//     });
+//     $("#MPMonitorCard").on('click',function(){
+//         CURRENT_URL = "MPMonitorCard";
+//         active_menu("MPMonitorCard");
+//         touchcookie();
+//         mp_monitor_card();
+//     });
+//     $("#MPStaticMonitorTable").on('click',function(){
+//         CURRENT_URL = "MPStaticMonitorTable";
+//         active_menu("MPStaticMonitorTable");
+//         touchcookie();
+//         mp_static_monitor_table();
+//     });
+//
+//     $("#WarningCheck").on('click',function(){
+//         CURRENT_URL = "WarningCheck";
+//         active_menu("WarningCheck");
+//         touchcookie();
+//         warning_check();
+//     });
+//     $("#WarningHandle").on('click',function(){
+//         CURRENT_URL = "WarningHandle";
+//         active_menu("WarningHandle");
+//         touchcookie();
+//         warning_handle();
+//     });
+//
+//     $("#InstConf").on('click',function(){
+//         CURRENT_URL = "InstConf";
+//         active_menu("InstConf");
+//         touchcookie();
+//         Inst_Conf();
+//     });
+//     $("#InstRead").on('click',function(){
+//         CURRENT_URL = "InstRead";
+//         active_menu("InstRead");
+//
+//         touchcookie();
+//         Inst_Read();
+//     });
+//     $("#InstDesign").on('click',function(){
+//         CURRENT_URL = "InstDesign";
+//         active_menu("InstDesign");
+//         touchcookie();
+//         Inst_Design();
+//     });
+//     $("#InstControl").on('click',function(){
+//         CURRENT_URL = "InstControl";
+//         active_menu("InstControl");
+//         touchcookie();
+//         Inst_Control();
+//     });
+//     $("#InstSnapshot").on('click',function(){
+//         CURRENT_URL = "InstSnapshot";
+//         active_menu("InstSnapshot");
+//         touchcookie();
+//         Inst_Snapshot();
+//     });
+//     $("#InstVideo").on('click',function(){
+//         CURRENT_URL = "InstVideo";
+//         active_menu("InstVideo");
+//         touchcookie();
+//         Inst_Video();
+//     });
+//     $("#AuditTarget").on('click',function(){
+//         CURRENT_URL = "AuditTarget";
+//         active_menu("AuditTarget");
+//         touchcookie();
+//         Audit_Target();
+//     });
+//     $("#AuditStability").on('click',function(){
+//         CURRENT_URL = "AuditStability";
+//         active_menu("AuditStability");
+//         touchcookie();
+//         Audit_Stability();
+//     });
+//     $("#AuditAvailability").on('click',function(){
+//         CURRENT_URL = "AuditAvailability";
+//         active_menu("AuditAvailability");
+//         touchcookie();
+//         Audit_Availability();
+//     });
+//     $("#AuditError").on('click',function(){
+//         CURRENT_URL = "AuditError";
+//         active_menu("AuditError");
+//         touchcookie();
+//         Audit_Error();
+//     });
+//     $("#AuditQuality").on('click',function(){
+//         CURRENT_URL = "AuditQuality";
+//         active_menu("AuditQuality");
+//         touchcookie();
+//         Audit_Quality();
+//     });
+//     $("#GeoInfoQuery").on('click',function(){
+//         CURRENT_URL = "GeoInfoQuery";
+//         active_menu("GeoInfoQuery");
+//         touchcookie();
+//         Geo_InfoQuery();
+//     });
+//     $("#GeoTrendAnalysis").on('click',function(){
+//         CURRENT_URL = "GeoTrendAnalysis";
+//         active_menu("GeoTrendAnalysis");
+//         touchcookie();
+//         Geo_TrendAnalysis();
+//     });
+//     $("#GeoDisaterForecast").on('click',function(){
+//         CURRENT_URL = "GeoDisaterForecast";
+//         active_menu("GeoDisaterForecast");
+//         touchcookie();
+//         Geo_DisaterForecast();
+//     });
+//     $("#GeoEmergencyDirect").on('click',function(){
+//         CURRENT_URL = "GeoEmergencyDirect";
+//         active_menu("GeoEmergencyDirect");
+//         touchcookie();
+//         Geo_EmergencyDirect();
+//     });
+//     $("#GeoDiffusionAnalysis").on('click',function(){
+//         CURRENT_URL = "GeoDiffusionAnalysis";
+//         active_menu("GeoDiffusionAnalysis");
+//         touchcookie();
+//         Geo_DiffusionAnalysis();
+//     });
+//     $("#WorkflowDesign").on('click',function(){
+//         CURRENT_URL = "WorkflowDesign";
+//         active_menu("WorkflowDesign");
+//         touchcookie();
+//         Work_flowDesign();
+//     });
+//     $("#OrderManagement").on('click',function(){
+//         CURRENT_URL = "OrderManagement";
+//         active_menu("OrderManagement");
+//         touchcookie();
+//         Order_Management();
+//     });
+//     $("#UnloadingManagement").on('click',function(){
+//         CURRENT_URL = "UnloadingManagement";
+//         active_menu("UnloadingManagement");
+//         touchcookie();
+//         Unloading_Management();
+//     });
+//     $("#OrderAudit").on('click',function(){
+//         CURRENT_URL = "OrderAudit";
+//         active_menu("OrderAudit");
+//         touchcookie();
+//         Order_Audit();
+//     });
+//     $("#ADConf").on('click',function(){
+//         CURRENT_URL = "ADConf";
+//         active_menu("ADConf");
+//         touchcookie();
+//         AD_Conf();
+//     });
+//     $("#WEBConf").on('click',function(){
+//         CURRENT_URL = "WEBConf";
+//         active_menu("WEBConf");
+//         touchcookie();
+//         WEB_Conf();
+//     });
+//     $("#KeyManage").on('click',function(){
+//         CURRENT_URL = "KeyManage";
+//         active_menu("KeyManage");
+//         touchcookie();
+//         key_manage();
+//         //KEY_Manage();
+//     });
+//     $("#KeyAuth").on('click',function(){
+//         CURRENT_URL = "KeyAuth";
+//         active_menu("KeyAuth");
+//         touchcookie();
+//         key_auth();
+//     });
+//     $("#KeyHistory").on('click',function(){
+//         CURRENT_URL = "KeyHistory";
+//         active_menu("KeyHistory");
+//         touchcookie();
+//         key_history();
+//     });
+//
+//
+//
+//     //user view buttons
+//     $("#UserfreshButton").on('click',function(){
+//         touchcookie();
+//         clear_user_detail_panel();
+//         user_intialize(0);
+//     });
+//     $("#UserExportButton").on('click',function(){
+//         touchcookie();
+//         //alert("Not support yet");
+//         var condition_user = [];//new Array();
+//         var temp ={
+//             ConditonName: "UserId",
+//             Equal:usr.id,
+//             GEQ:"",
+//             LEQ:""
+//         };
+//         condition_user.push(temp);
+//         Data_export_Normal("用户表导出","usertable",condition_user,[]);
+//     });
+//     $("#UserNewButton").on('click',function(){
+//         touchcookie();
+//         show_new_user_module();
+//     });
+//     $("#UserDelButton").on('click',function(){
+//         touchcookie();
+//         if(user_selected === null){
+//             show_alarm_module(true,"请选择一个用户",null);
+//         }else{
+//             modal_middle($('#UserDelAlarm'));
+//             $('#UserDelAlarm').modal('show');
+//         }
+//     });
+//     $("#UserModifyButton").on('click',function(){
+//         touchcookie();
+//         if(user_selected === null){
+//             show_alarm_module(true,"请选择一个用户",null);
+//         }else{
+//             show_mod_user_module(user_selected,user_selected_auth);
+//         }
+//     });
+//     $("#delUserCommit").on('click',function(){
+//         del_user(user_selected.id);
+//         touchcookie();
+//     });
+//     $("#newUserCommit").on('click',function(){
+//         if(user_module_status){
+//             submit_new_user_module();
+//             touchcookie();
+//         }else{
+//             submit_mod_user_module();
+//             touchcookie();
+//         }
+//     });
+//     //pg view buttons
+//     $("#PGfreshButton").on('click',function(){
+//         touchcookie();
+//         clear_pg_detail_panel();
+//         pg_intialize(0);
+//     });
+//     $("#PGExportButton").on('click',function(){
+//         touchcookie();
+//         var condition_user = [];//new Array();
+//         var temp ={
+//             ConditonName: "UserId",
+//             Equal:usr.id,
+//             GEQ:"",
+//             LEQ:""
+//         };
+//         condition_user.push(temp);
+//         Data_export_Normal("项目组表导出","PGtable",condition_user,[]);//new Array());
+//     });
+//     $("#PGNewButton").on('click',function(){
+//         touchcookie();
+//         show_new_pg_module();
+//     });
+//     $("#PGDelButton").on('click',function(){
+//         touchcookie();
+//         if(pg_selected === null){
+//             show_alarm_module(true,"请选择一个项目组",null);
+//         }else{
+//             modal_middle($('#PGDelAlarm'));
+//             $('#PGDelAlarm').modal('show');
+//         }
+//     });
+//     $("#PGModifyButton").on('click',function(){
+//         touchcookie();
+//         if(pg_selected === null){
+//             show_alarm_module(true,"请选择一个项目组",null);
+//         }else{
+//             show_mod_pg_module(pg_selected,pg_selected_proj);
+//         }
+//     });
+//     $("#delPGCommit").on('click',function(){
+//         //发送请求并且告知成功失败
+//         //刷新表格
+//         del_pg(pg_selected.PGCode);
+//         touchcookie();
+//     });
+//     $("#newPGCommit").on('click',function(){
+//         //检查输入项目
+//         //发送请求
+//         //刷新表格
+//         if(pg_module_status){
+//             submit_new_pg_module();
+//             touchcookie();
+//         }else{
+//             submit_mod_pg_module();
+//             touchcookie();
+//         }
+//     });
+// // project view buttons
+//
+//
+//     $("#ProjfreshButton").on('click',function(){
+//         touchcookie();
+//         clear_proj_detail_panel();
+//         proj_intialize(0);
+//     });
+//     $("#ProjExportButton").on('click',function(){
+//         touchcookie();
+//         var condition_user = [];//new Array();
+//         var temp ={
+//             ConditonName: "UserId",
+//             Equal:usr.id,
+//             GEQ:"",
+//             LEQ:""
+//         };
+//         condition_user.push(temp);
+//         Data_export_Normal("项目表导出","Projtable",condition_user,[]);//new Array());
+//     });
+//     $("#ProjNewButton").on('click',function(){
+//         touchcookie();
+//         show_new_proj_module();
+//     });
+//     $("#ProjDelButton").on('click',function(){
+//         touchcookie();
+//         if(project_selected === null){
+//             show_alarm_module(true,"请选择一个项目",null);
+//         }else{
+//             modal_middle($('#ProjDelAlarm'));
+//             $('#ProjDelAlarm').modal('show');
+//         }
+//     });
+//     $("#ProjModifyButton").on('click',function(){
+//         touchcookie();
+//         if(project_selected === null){
+//             show_alarm_module(true,"请选择一个项目",null);
+//         }else{
+//             show_mod_proj_module(project_selected);
+//         }
+//     });
+//     $("#delProjCommit").on('click',function(){
+//         //发送请求并且告知成功失败
+//         //刷新表格
+//         del_proj(project_selected.ProjCode);
+//         touchcookie();
+//     });
+//     $("#newProjCommit").on('click',function(){
+//         //检查输入项目
+//         //发送请求
+//         //刷新表格
+//         if(project_module_status){
+//             submit_new_proj_module();
+//             touchcookie();
+//         }else{
+//             submit_mod_proj_module();
+//
+//             touchcookie();
+//         }
+//     });
+//
+//     //MP view buttons
+//     $("#PointfreshButton").on('click',function(){
+//         touchcookie();
+//         clear_point_detail_panel();
+//         point_intialize(0);
+//     });
+//     $("#PointExportButton").on('click',function(){
+//         touchcookie();
+//         var condition_user = [];// new Array();
+//         var temp ={
+//             ConditonName: "UserId",
+//             Equal:usr.id,
+//             GEQ:"",
+//             LEQ:""
+//         };
+//         condition_user.push(temp);
+//         Data_export_Normal("站点导出","Pointtable",condition_user,[]);//new Array());
+//     });
+//     $("#PointNewButton").on('click',function(){
+//         touchcookie();
+//         show_new_point_module();
+//     });
+//     $("#PointDelButton").on('click',function(){
+//         touchcookie();
+//         if(point_selected === null){
+//             show_alarm_module(true,"请选择一个站点",null);
+//         }else{
+//             modal_middle($('#PointDelAlarm'));
+//             $('#PointDelAlarm').modal('show');
+//         }
+//     });
+//     $("#PointModifyButton").on('click',function(){
+//         touchcookie();
+//         if(point_selected === null){
+//             show_alarm_module(true,"请选择一个站点",null);
+//         }else{
+//             show_mod_point_module(point_selected);
+//         }
+//     });
+//     $("#delPointCommit").on('click',function(){
+//         //发送请求并且告知成功失败
+//         //刷新表格
+//         del_point(point_selected.StatCode);
+//         touchcookie();
+//     });
+//     $("#newPointCommit").on('click',function(){
+//         //检查输入项目
+//         //发送请求
+//         //刷新表格
+//         if(point_module_status){
+//             submit_new_point_module();
+//             touchcookie();
+//         }else{
+//             submit_mod_point_module();
+//
+//             touchcookie();
+//         }
+//     });
+//
+//
+// // device view buttons
+//     $("#DevfreshButton").on('click',function(){
+//         touchcookie();
+//         clear_dev_detail_panel();
+//         dev_intialize(0);
+//     });
+//     $("#DevExportButton").on('click',function(){
+//         touchcookie();
+//         var condition_user = [];//new Array();
+//         var temp ={
+//             ConditonName: "UserId",
+//             Equal:usr.id,
+//             GEQ:"",
+//             LEQ:""
+//         };
+//         condition_user.push(temp);
+//         Data_export_Normal("设备表导出","Devtable",condition_user,[]);//new Array());
+//     });
+//     $("#DevNewButton").on('click',function(){
+//         touchcookie();
+//         show_new_dev_module();
+//     });
+//     $("#DevDelButton").on('click',function(){
+//         touchcookie();
+//         if(device_selected === null){
+//             show_alarm_module(true,"请选择一个设备",null);
+//         }else{
+//             modal_middle($('#DevDelAlarm'));
+//             $('#DevDelAlarm').modal('show');
+//         }
+//     });
+//     $("#DevModifyButton").on('click',function(){
+//         touchcookie();
+//         if(device_selected === null){
+//             show_alarm_module(true,"请选择一个设备",null);
+//         }else{
+//             show_mod_dev_module(device_selected);
+//         }
+//     });
+//     $("#delDevCommit").on('click',function(){
+//         //发送请求并且告知成功失败
+//         //刷新表格
+//         del_dev(device_selected.DevCode);
+//         touchcookie();
+//     });
+//     $("#newDevCommit").on('click',function(){
+//         //检查输入项目
+//         //发送请求
+//         //刷新表格
+//         if(device_module_status){
+//             submit_new_dev_module();
+//             touchcookie();
+//         }else{
+//             submit_mod_dev_module();
+//
+//             touchcookie();
+//         }
+//     });
+//
+//     $("#DevProjCode_choice").change(function(){
+//         get_proj_point_option($("#DevProjCode_choice").val(),$("#DevStatCode_choice"),"");
+//     });
+//     $("#QueryProjCode_choice").change(function(){
+//         get_proj_point_option($("#QueryProjCode_choice").val(),$("#QueryStatCode_choice"),"");
+//     });
+//     $("#AlarmQueryCommit").on('click',function(){
+//
+//         touchcookie();
+//         if(alarm_selected === null){
+//             $("#WCStatCode_Input").attr("placeholder","请先在地图上选择一个点");
+//             return;
+//         }
+//
+//         if($("#Alarm_query_Input").val()==="" || $("#Alarm_query_Input").val() === null){
+//             $("#Alarm_query_Input").attr("placeholder","请输入日期");
+//             return;
+//         }
+//
+//         if(alarm_type_list!== null){
+//             unhide_all_chart();
+//             for(var i=0;i<alarm_type_list.length;i++){
+//                 query_alarm($("#Alarm_query_Input").val(),alarm_type_list[i].id,alarm_type_list[i].name);
+//             }
+//         }
+//         //window.setTimeout(show_table_tags, wait_time_long);
+//
+//
+//     });
+//     $('#Alarm_query_choice').change(function(){
+//         var temp = $(this).val();
+//         if(temp === "0"){
+//             $("#Alarm_query_Input2").val("");
+//             $("#Alarm_date_button").css("display","none");
+//             $("#Alarm_chart_view2").css('display','none');
+//             $("#Alarm_chart_realtime_view2").css('display','block');
+//         }else{
+//             $("#Alarm_date_button").css("display","block");
+//
+//             $("#Alarm_chart_view2").css('display','block');
+//             $("#Alarm_chart_realtime_view2").css('display','none');
+//         }
+//     });
+//     $("#AlarmQueryCommit2").on('click',function(){
+//
+//         touchcookie();
+//         if(alarm_selected === null){
+//             $("#WCStatCode_Input2").attr("placeholder","请先在地图上选择一个点");
+//             return;
+//         }
+//         var temp = $('#Alarm_query_choice').val();
+//         if(temp === "1"){
+//             if($("#Alarm_query_Input2").val()==="" || $("#Alarm_query_Input2").val() === null){
+//                 $("#Alarm_query_Input2").attr("placeholder","请输入日期");
+//                 return;
+//             }
+//         }
+//         var i;
+//         if(alarm_type_list!== null&temp === "1"){
+//             unhide_all_chart();
+//             alarm_interval_tab = null;
+//             if(alarm_interval!== null){ clearInterval(alarm_interval);alarm_interval= null;}
+//             for(i=0;i<alarm_type_list.length;i++){
+//                 query_alarm2($("#Alarm_query_Input2").val(),alarm_type_list[i].id,alarm_type_list[i].name);
+//             }
+//         }else{
+//             unhide_all_chart();
+//             alarm_interval_tab = null;
+//             if(alarm_interval!== null){ clearInterval(alarm_interval);}
+//             for(i=0;i<alarm_type_list.length;i++){
+//                 query_alarm3(alarm_type_list[i].id,alarm_type_list[i].name);
+//             }
+//             alarm_interval = setInterval(function(){
+//                 for(i=0;i<alarm_type_list.length;i++){
+//                     query_alarm3(alarm_type_list[i].id,alarm_type_list[i].name);
+//                 }
+//             },cycle_time);
+//         }
+//
+//
+//     });
+//     $("#Video_query_Input").change(function(){
+//         $("#Video_query_Input").val(date_compare_today($("#Video_query_Input").val()));
+//         video_selection_change();
+//     });
+//     $("#VideoHour_choice").change(function(){
+//         video_selection_change();
+//     });
+//     $("#VideoModuleHour_choice").change(function(){
+//         video_Module_selection_change();
+//     });
+//     $("#VideoModule_query_Input").change(function(){
+//         video_Module_selection_change();
+//     });
+//     $("#Alarm_query_Input").change(function(){
+//         $("#Alarm_query_Input").val(date_compare_today($("#Alarm_query_Input").val()));
+//     });
+//     $("#Alarm_query_Input2").change(function(){
+//         $("#Alarm_query_Input2").val(date_compare_today($("#Alarm_query_Input2").val()));
+//     });
+//     $("#AlarmExport").on('click',function() {
+//         touchcookie();
+//         Data_export_alarm();
+//     });
+//     $("#AlarmExport2").on('click',function() {
+//         touchcookie();
+//         Data_export_alarm2();
+//     });
+//     $("#AlarmQuery_Commit").on('click',function() {
+//         touchcookie();
+//         submit_alarm_query();
+//     });
+//     $("#SensorUpdateCommit").on('click',function() {
+//         touchcookie();
+//         submit_sensor_module();
+//     });
+//     $("#ExpiredConfirm").on('click',function() {
+//         logout();
+//     });
+//     $("#QueryStartTime_Input").change(function(){
+//         $("#QueryStartTime_Input").val(date_compare_today($("#QueryStartTime_Input").val()));
+//         if( $("#QueryEndTime_Input").val()===""){
+//             $("#QueryEndTime_Input").val($("#QueryStartTime_Input").val());
+//         }else{
+//             $("#QueryEndTime_Input").val(date_compare($("#QueryEndTime_Input").val(),$("#QueryStartTime_Input").val()));
+//         }
+//     });
+//     $("#QueryEndTime_Input").change(function(){
+//         if( $("#QueryStartTime_Input").val()==="") {
+//             $("#QueryEndTime_Input").val(date_compare_today($("#QueryEndTime_Input").val()));
+//             $("#QueryStartTime_Input").val($("#QueryStartTime_Input").val());
+//         }else{
+//             $("#QueryEndTime_Input").val(date_compare($("#QueryEndTime_Input").val(),$("#QueryStartTime_Input").val()));
+//         }
+//     });
+//     $("#VCRshow").on('click',function() {
+//         var vcraddress = $("#VCRStatus_choice").val();
+//         if(vcraddress === "") return;
+//         video_windows(vcraddress);
+//     });
+//     $("#VideoWindow").on('click',function() {
+//         if(monitor_selected === null) return;
+//         get_camera_and_video_web(monitor_selected.StatCode,false,true);
+//     });
+//     $("#CameraWindow").on('click',function() {
+//         if(monitor_selected === null) return;
+//         get_camera_and_video_web(monitor_selected.StatCode,true,false);
+//     });
+// 	$("#ModuleVCRshow").on('click',function() {
+//         var vcraddress = $("#ModuleVCRStatus_choice").val();
+//         if(vcraddress === "") return;
+//         window.open(httphead+"//"+vcraddress,'监控照片',"height=480, width=640, top=0, left=400,toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no");
+//     });
+//     $("#ModuleVCRreset").on('click',function() {
+//         reset_camera($("#VideoModuleStatCode_Input").val());
+//     });
+//     $("#MonitorTableFlash").on('click',function() {
+//         query_static_warning();
+//     });
+//     $("#WarningHandleTableFlash").on('click',function() {
+//         query_warning_handle_list();
+//     });
+//     $("#AuditStabilityFlash").on('click',function() {
+//         query_audit_stability();
+//     });
+//
+//     $("#menu_user_profile").on('click',function() {
+//         touchcookie();
+//         show_usr_msg_module();
+//     });
+//     $("#ScreenSaver").on('click',function() {
+//         if(monitor_selected === null) return;
+//         screen_windows();
+//     });
+//     $("#UsrMsgCommit").on('click',function() {
+//         touchcookie();
+//         user_message_update();
+//     });
+//
+//     $("#UsrImgClean").on('click',function() {
+//         touchcookie();
+//         clear_user_image();
+//     });
+//     $("#UsrImgFlash").on('click',function() {
+//         touchcookie();
+//         get_user_image();
+//     });
+//     $("#UpdateConfirm_button").on('click',function() {
+//         touchcookie();
+//         update_version();
+//     });
+// 	$("#btn_camera_up").on('click',function() {
+// 		var camera_state_code = $('#VideoModuleStatCode_Input').val();
+// 		if(camera_state_code!==undefined && camera_state_code!==""){
+// 			move_camera(camera_state_code,"v","1");
+// 		}
+//     });
+// 	$("#btn_camera_down").on('click',function() {
+// 		var camera_state_code = $('#VideoModuleStatCode_Input').val();
+// 		if(camera_state_code!==undefined && camera_state_code!==""){
+// 			move_camera(camera_state_code,"v","-1");
+// 		}
+//     });
+// 	$("#btn_camera_right").on('click',function() {
+// 		var camera_state_code = $('#VideoModuleStatCode_Input').val();
+// 		if(camera_state_code!==undefined && camera_state_code!==""){
+// 			move_camera(camera_state_code,"h","1");
+// 		}
+//     });
+// 	$("#btn_camera_left").on('click',function() {
+// 		var camera_state_code = $('#VideoModuleStatCode_Input').val();
+// 		if(camera_state_code!==undefined && camera_state_code!==""){
+// 			move_camera(camera_state_code,"h","-1");
+// 		}
+//     });
+//     $(".lock_monitor_btn").on('click',function() {
+//         monitor_lock();
+//     });
+//     $('#UnlockConfirmBtn').on('click',function() {
+//         var statcode = $(this).attr("StateCode");
+//         //console.log("["+statcode+"]");
+//         if(statcode!==undefined&&statcode!=="" ){
+//             openlock(statcode);
+//         }
+//     });
+//     $('.keyrow').on('click',function() {
+//         var keyid = $(this).attr("id");
+//         if(keyid!==undefined&&keyid!=="" ){
+//             get_key_auth_list(keyid);
+//         }
+//     });
+//
+//
+// // key view buttons
+//     $("#KeyfreshButton").on('click',function(){
+//         touchcookie();
+//         clear_key_detail_panel();
+//         key_intialize(0);
+//     });
+//     $("#KeyExportButton").on('click',function(){
+//         touchcookie();
+//         var condition_user = [];//new Array();
+//         var temp ={
+//             ConditonName: "UserId",
+//             Equal:usr.id,
+//             GEQ:"",
+//             LEQ:""
+//         };
+//         condition_user.push(temp);
+//         Data_export_Normal("钥匙表导出","keytable",condition_user,[]);//new Array());
+//     });
+//     $("#KeyNewButton").on('click',function(){
+//         touchcookie();
+//         show_new_key_module();
+//     });
+//     $("#KeyDelButton").on('click',function(){
+//         touchcookie();
+//         if(key_selected === null){
+//             show_alarm_module(true,"请选择一把钥匙",null);
+//         }else{
+//             modal_middle($('#KeyDelAlarm'));
+//             $('#KeyDelAlarm').modal('show');
+//         }
+//     });
+//     $("#KeyModifyButton").on('click',function(){
+//         touchcookie();
+//         if(key_selected === null){
+//             show_alarm_module(true,"请选择一把钥匙",null);
+//         }else{
+//             show_mod_key_module(key_selected);
+//         }
+//     });
+//     $("#delKeyCommit").on('click',function(){
+//         //发送请求并且告知成功失败
+//         //刷新表格
+//         del_key(key_selected.KeyCode);
+//         touchcookie();
+//     });
+//     $("#newKeyCommit").on('click',function(){
+//         //检查输入项目
+//         //发送请求
+//         //刷新表格
+//         if(key_module_status){
+//             submit_new_key_module();
+//             touchcookie();
+//         }else{
+//             submit_mod_key_module();
+//             touchcookie();
+//         }
+//     });
+//     $("#KeyHistoryTableFlash").on('click',function(){
+//         query_open_lock_history();
+//
+//         touchcookie();
+//     });
+// 	$("#KeyAuthQuery").on('click',function(){
+// 		get_domain_auth_list($("#KeyAuthPoint_choice").val());
+//         touchcookie();
+//     });
+// 	$("#KeyAuthNew").on('click',function(){
+//         show_auth_new_module($("#KeyAuthProj_choice").val(),$("#KeyAuthPoint_choice").val(),$("#KeyAuthPoint_choice").find("option:selected").text());
+//         touchcookie();
+//     });
+// 	$("#KeyUserChange").on('click',function(){
+// 		show_key_grant_module($("#KeyUserKey_choice").val(),$("#KeyUserUser_choice").val(),$("#KeyUserKey_choice").find("option:selected").text(),$("#KeyUserUser_choice").find("option:selected").text());
+//         touchcookie();
+//     });
+// 	$("#delKeyAuthCommit").on('click',function(){
+// 		//console.log("click"+$(this).attr("AuthId"));
+// 		$('#KeyAuthDelAlarm').modal('hide');
+// 		key_auth_delete($(this).attr("AuthId"));
+//         touchcookie();
+//     });
+//     $("#newKeyAuthCommit").on('click',function(){
+//         click_new_key_auch_commit();
+// 		touchcookie();
+//     });
+// 	$("#NewKeyAuthEndTime_Input").change(function(){
+//         $("#NewKeyAuthEndTime_Input").val(check_key_auth_date($(this).val()));
+//     });
+// 	$("#KeyGrantCommit").on('click',function(){
+// 		$('#KeyGrantAlarm').modal('hide');
+//         click_key_grant_commit($(this).attr("KeyId"),$(this).attr("UserId"));
+//     });
+//
+//     $("#AlarmHandleUpdateCommit").on('click',function(){
+//         AlarmHandleUpdateCommit_button_commit();
+//     });
+//     $("#CommonQueryCommit").on('click',function(){
+//         if(global_key_word == $("#CommonQueryInput").val()) return;
+//         global_key_word = $("#CommonQueryInput").val();
+//         switch (CURRENT_URL){
+//             case "UserManage":
+//                 user_intialize(0);
+//                 break;
+//             case "KeyManage":
+//                 key_intialize(0);
+//                 break;
+//             case "PGManage":
+//                 pg_intialize(0);
+//                 break;
+//             case "ProjManage":
+//                 proj_intialize(0);
+//                 break;
+//             case "MPManage":
+//                 point_intialize(0);
+//                 break;
+//             case "DevManage":
+//                 dev_intialize(0);
+//                 break;
+//             default:
+//
+//                 break;
+//         }
+//         return;
+//     });
+//
+//     $("#RTSPHistoryshow").on('click',function(){
+//
+//         var dateRTSP = new Date($("#RTSPHistoryAlarmTime_Input").val());
+//         dateRTSP = date_addminutes(dateRTSP,parseInt($("#rtsp_zoom").val()));
+//         var alarmstart = dateRTSP.Format("yyyyMMddThhmmss");
+//
+//         dateRTSP = date_addminutes(dateRTSP,1);
+//
+//         var alarmend = dateRTSP.Format("yyyyMMddThhmmss");
+//         var href = $(this).attr("data-url")+"?starttime="+alarmstart+"Z&endtime="+alarmend+"Z";
+//         console.log(href);
+//         window.location.href = href;
+//
+//     });
+//     $("#DevCaliButton").on('click',function(){
+//         if(device_selected === null) return;
+//         getdevcali(device_selected.DevCode);
+//     });
+//     $("#DeviceCalibrationTableCommit").on('click',function(){
+//         setdevcali(device_selected.DevCode);
+//     });
+//     clear_window();
+//     desktop();
+//     calculate_row();
+//     clear_user_detail_panel();
+//     clear_proj_detail_panel();
+//
+//
+//
+//
+//     $(window).resize();
+//
+// });
 
 function show_searchbar(){
     global_key_word = "";
@@ -7022,31 +6990,30 @@ function show_alarm_module(ifalarm,text,callback){
     }
 }
 
-function getLocation()
-{
-    console.log("正在获取位置！");
-    if (navigator.geolocation)
-    {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    }
-    else{
-        console.log("无法获得当前位置！");
-    }
-}
-function showPosition(position)
-{
-    console.log("Latitude: " + position.coords.latitude +
-        "Longitude: " + position.coords.longitude);
-    Latitude = position.coords.latitude;
-    Longitude = position.coords.longitude;
-}
-
+// function getLocation()
+// {
+//     console.log("正在获取位置！");
+//     if (navigator.geolocation)
+//     {
+//         navigator.geolocation.getCurrentPosition(showPosition);
+//     }
+//     else{
+//         console.log("无法获得当前位置！");
+//     }
+// }
+// function showPosition(position)
+// {
+//     console.log("Latitude: " + position.coords.latitude +
+//         "Longitude: " + position.coords.longitude);
+//     Latitude = position.coords.latitude;
+//     Longitude = position.coords.longitude;
+// }
+//
 function parameter_initialize(){
     parameter_initial = true;
     if(project_list === null)get_project_list();
     get_VersionInformation();
     draw_parameter_page();
-
 }
 function draw_parameter_page(){
     $("#UpdateProj_choice").empty();
