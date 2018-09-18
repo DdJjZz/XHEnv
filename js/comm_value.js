@@ -172,7 +172,4 @@ function showPosition(position)
     Latitude = position.coords.latitude;
     Longitude = position.coords.longitude;
 }
-$(document).ready(function() {
-    console.log("comm_value.js is Start");
-});
 

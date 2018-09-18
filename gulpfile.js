@@ -94,6 +94,47 @@ gulp.task("resourcecopy",function(){
 
 // �ϲ���ѹ���ļ�
 gulp.task('scripts', function() {
+    gulp.src('./js/UserNew.js')
+        .pipe(concat('UserNew.js'))
+        //.pipe(gulp.dest('./dist/js'))
+        .pipe(rename('UserNew.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest(option.buildPath+"/js/"));
+    gulp.src('./js/drawUserTable.js')
+        .pipe(concat('drawUserTable.js'))
+        //.pipe(gulp.dest('./dist/js'))
+        .pipe(rename('drawUserTable.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest(option.buildPath+"/js/"));
+
+    gulp.src('./js/action_user_fresh_button.js')
+        .pipe(concat('action_user_fresh_button.js'))
+        //.pipe(gulp.dest('./dist/js'))
+        .pipe(rename('action_user_fresh_button.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest(option.buildPath+"/js/"));
+
+    gulp.src('./js/UserExport.js')
+        .pipe(concat('UserExport.js'))
+        //.pipe(gulp.dest('./dist/js'))
+        .pipe(rename('UserExport.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest(option.buildPath+"/js/"));
+
+    gulp.src('./js/menu_clear.js')
+        .pipe(concat('menu_clear.js'))
+        //.pipe(gulp.dest('./dist/js'))
+        .pipe(rename('menu_clear.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest(option.buildPath+"/js/"));
+
+    gulp.src('./js/menu_show_js.js')
+        .pipe(concat('menu_show_js.js'))
+        //.pipe(gulp.dest('./dist/js'))
+        .pipe(rename('menu_show_js.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest(option.buildPath+"/js/"));
+
     gulp.src('./js/comm_value.js')
         .pipe(concat('comm_value.js'))
         //.pipe(gulp.dest('./dist/js'))
@@ -142,6 +183,10 @@ gulp.task('scripts', function() {
         .pipe(rename('ready_js.js'))
         .pipe(uglify())
         .pipe(gulp.dest(option.buildPath+"/js/"));
+
+
+
+
     gulp.src('./css/Login.css')
        // .pipe(concat('Login.css'))
         .pipe(rename('Login.css'))

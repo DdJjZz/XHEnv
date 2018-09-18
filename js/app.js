@@ -348,18 +348,18 @@ function nav_check(){
     $("#Hello_label").append("<span class=' fa fa-angle-down'></span>");
 }
 
-function modal_middle(modal){
-    if(!$BODY.hasClass('nav-md')){
-        $MENU_TOGGLE.click();}
-
-    setTimeout(function () {
-        var _modal = $(modal).find(".modal-dialog");
-        if(parseInt(($(window).height() - _modal.height())/2)>0){
-
-            _modal.animate({'margin-top': parseInt(($(window).height() - _modal.height())/2)}, 300 );
-        }
-    },wait_time_short);
-}
+// function modal_middle(modal){
+//     if(!$BODY.hasClass('nav-md')){
+//         $MENU_TOGGLE.click();}
+//
+//     setTimeout(function () {
+//         var _modal = $(modal).find(".modal-dialog");
+//         if(parseInt(($(window).height() - _modal.height())/2)>0){
+//
+//             _modal.animate({'margin-top': parseInt(($(window).height() - _modal.height())/2)}, 300 );
+//         }
+//     },wait_time_short);
+// }
 
 
 function on_collapse(data){
@@ -414,10 +414,10 @@ function get_user_information(){
 }
 
 
-function show_expiredModule(){
-    modal_middle($('#ExpiredAlarm'));
-    $('#ExpiredAlarm').modal('show') ;
-}
+// function show_expiredModule(){
+//     modal_middle($('#ExpiredAlarm'));
+//     $('#ExpiredAlarm').modal('show') ;
+// }
 // $(document).ready(function() {
 //     $("[data-toggle='modal']").click(function(){
 //         var _target = $(this).attr('data-target');
@@ -1380,372 +1380,367 @@ function show_expiredModule(){
 //
 // });
 
-function show_searchbar(){
-    global_key_word = "";
-    $("#CommonQueryInput").val("");
-    $("#QueryBar").css("display","block");
-}
-function hide_searchbar(){
-    $("#QueryBar").css("display","none");
-}
-function calculate_row(){
-    var screen_high = $(window).height();
-    var add_row = parseInt( ($(window).height()-650)/100);
-    if(add_row<=0)
-        table_row=5;
-    else if(add_row>=5)
-        table_row=10;
-    else
-        table_row=table_row+add_row;
+// function show_searchbar(){
+//     global_key_word = "";
+//     $("#CommonQueryInput").val("");
+//     $("#QueryBar").css("display","block");
+// }
+// function hide_searchbar(){
+//     $("#QueryBar").css("display","none");
+// }
+// function calculate_row(){
+//     var screen_high = $(window).height();
+//     var add_row = parseInt( ($(window).height()-650)/100);
+//     if(add_row<=0)
+//         table_row=5;
+//     else if(add_row>=5)
+//         table_row=10;
+//     else
+//         table_row=table_row+add_row;
+//
+// }
+// function show_table_tags(){
+// 	$('#Warning_'+alarm_type_list[0].id+'_day').css('display','block');
+// }
+// function show_table_tags2(){
+//     alarm_interval_tab = '#Warning_'+alarm_type_list[0].id+'_month2';
+//     $('#Warning_'+alarm_type_list[0].id+'_month2').css('display','block');
+// }
+// function show_table_tags3(){
+//     if(alarm_interval_tab === null){
+//         $('#Warning_'+alarm_type_list[0].id+'_minute2').css('display','block');
+//
+//         alarm_interval_tab = '#Warning_'+alarm_type_list[0].id+'_minute2';
+//     }else{
+//         $tail = alarm_interval_tab.split('_');
+//         if($tail[2] === "day2"||$tail[2] === "week2" ||$tail[2] === "month2"){
+//             $("#Alarm_chart_view2").css('display','block');
+//             $("#Alarm_chart_realtime_view2").css('display','none');
+//         }else{
+//             $("#Alarm_chart_view2").css('display','none');
+//             $("#Alarm_chart_realtime_view2").css('display','block');
+//
+//         }
+//         $(alarm_interval_tab).css('display','block');
+//     }
+// }
+// function user_manager(){
+//     clear_window();
+//     write_title("用户管理","根据您的权限对用户进行添加/删除/修改等操作");
+//     $("#UserManageView").css("display","block");
+//     show_searchbar();
+//     if(!user_initial){ user_intialize(0);}
+// }
+// function pg_manage(){
+//     clear_window();
+//     write_title("项目组管理","根据您的权限对项目组进行添加/删除/修改等操作");
+//     $("#PGManageView").css("display","block");
+//     show_searchbar();
+//     if(!pg_initial){ pg_intialize(0);}
+// }
+// function key_manage(){
+//     clear_window();
+//     write_title("钥匙管理","根据您的权限对项目组进行添加/删除/修改等操作");
+//     $("#KeyManageView").css("display","block");
+//     show_searchbar();
+//     if(!key_initial){ key_intialize(0);}
+// }
+// function proj_manage(){
+//     clear_window();
+//     write_title("项目管理","根据您的权限对项目进行添加/删除/修改等操作");
+//     $("#ProjManageView").css("display","block");
+//     show_searchbar();
+//     proj_intialize(0);
+// }
+// function para_manage(){
+//     clear_window();
+//     write_title("参数管理","您可以在这里升级您的设备版本");
+//     $("#ParaManageView").css("display","block");
+//     hide_searchbar();
+//     if(!parameter_initial)parameter_initialize();
+// }
+// function mp_manage(){
+//     clear_window();
+//     write_title("站点管理","根据您的权限对站点进行配置");
+//     $("#MPManageView").css("display","block");
+//     show_searchbar();
+//     if(!point_initial){ point_intialize(0);}
+// }
+// function dev_manage(){
+//     clear_window();
+//     write_title("设备管理","根据您的权限对设备进行配置");
+//     $("#DevManageView").css("display","block");
+//     show_searchbar();
+//     if(!device_initial){ dev_intialize(0);}
+// }
+// function mp_monitor(){
+//     clear_window();
+//     write_title("地图监控","在地图上对站点进行监控");
+//     CURRENT_URL = "MPMonitor";
+//     $("#MPMonitorView").css("display","block");
+//     console.log("into map:"+map_initialized);
+//     hide_searchbar();
+//     initializeMap();
+// }
+// function mp_monitor_table(){
+//     clear_window();
+//     write_title("站点聚合","实时刷新");
+//     $("#MPMonitorTableView").css("display","block");
+//     hide_searchbar();
+//     if(!Monitor_table_initialized)initialize_warning_table();
+//
+// }
+// function mp_monitor_card(){
+//     clear_window();
+//     write_title("站点列块","点选设备卡片以获得详细信息");
+//     hide_searchbar();
+//     $("#MPMonitorCardView").css("display","block");
+// }
+// function mp_static_monitor_table(){
+//     clear_window();
+//     write_title("站点聚合","请手工刷新");
+//     $("#MPMonitorStaticTableView").css("display","block");
+//     hide_searchbar();
+//     query_static_warning();
+//
+// }
+// function warning_check(){
+//     clear_window();
+//     write_title("告警查看","可以导出报表");
+//     $("#WarningCheckView").css("display","block");
+//     hide_searchbar();
+//     if(!alarm_map_initialized)initializeAlarmMap();
+// }
+// function warning_handle(){
+//     clear_window();
+//     $("#WarningHandleView").css("display","block");
+//     write_title("告警处理","请查看报表");
+//     hide_searchbar();
+//     //query_warning_handle_list();
+//     warning_handle_initialize();
+// }
+// function desktop(){
+//     clear_window();
+//     hide_searchbar();
+//     write_title("欢迎","请选择您需要的功能");
+//     $("#Desktop").css("display","block");
+// }
+// function Inst_Conf(){
+//     clear_window();
+//     write_title("施工中","");
+//     hide_searchbar();
+//     $("#Undefined").css("display","block");
+// }
+// function Inst_Read(){
+//     clear_window();
+//     write_title("施工中","");
+//     hide_searchbar();
+//     $("#Undefined").css("display","block");
+// }
+// function Inst_Design(){
+//     clear_window();
+//     write_title("施工中","");
+//     hide_searchbar();
+//     $("#Undefined").css("display","block");
+// }
+// function Inst_Control(){
+//     clear_window();
+//     write_title("施工中","");
+//     hide_searchbar();
+//     $("#Undefined").css("display","block");
+// }
+// function Inst_Snapshot(){
+//     clear_window();
+//     write_title("施工中","");
+//     hide_searchbar();
+//     $("#Undefined").css("display","block");
+// }
+// function Inst_Video(){
+//     clear_window();
+//     write_title("施工中","");
+//     hide_searchbar();
+//     $("#Undefined").css("display","block");
+// }
+// function Audit_Target(){
+//     clear_window();
+//     write_title("施工中","");
+//     hide_searchbar();
+//     $("#Undefined").css("display","block");
+// }
+// function Audit_Stability(){
+//     clear_window();
+//     write_title("稳定性统计","请手工刷新");
+//     hide_searchbar();
+//     $("#AuditStabilityView").css("display","block");
+//     query_audit_stability();
+// }
+// function Audit_Availability(){
+//     clear_window();
+//     write_title("施工中","");
+//     hide_searchbar();
+//     $("#Undefined").css("display","block");
+// }
+// function Audit_Error(){
+//     clear_window();
+//     write_title("施工中","");
+//     hide_searchbar();
+//     $("#Undefined").css("display","block");
+// }
+// function Audit_Quality(){
+//     clear_window();
+//     write_title("施工中","");
+//     hide_searchbar();
+//     $("#Undefined").css("display","block");
+// }
+// function Geo_InfoQuery(){
+//     clear_window();
+//     CURRENT_URL="Undefined";
+//     write_title("施工中","");
+//     hide_searchbar();
+//     $("#Undefined").css("display","block");
+// }
+// function Geo_TrendAnalysis(){
+//     clear_window();
+//     CURRENT_URL="Undefined";
+//     write_title("施工中","");
+//     hide_searchbar();
+//     $("#Undefined").css("display","block");
+// }
+// function Geo_DisaterForecast(){
+//     clear_window();
+//     CURRENT_URL="Undefined";
+//     write_title("施工中","");
+//     hide_searchbar();
+//     $("#Undefined").css("display","block");
+// }
+// function Geo_EmergencyDirect(){
+//     clear_window();
+//     write_title("施工中","");
+//     hide_searchbar();
+//     $("#Undefined").css("display","block");
+// }
+// function Geo_DiffusionAnalysis(){
+//     clear_window();
+//     write_title("施工中","");
+//     hide_searchbar();
+//     $("#Undefined").css("display","block");
+// }
+// function Work_flowDesign(){
+//     clear_window();
+//     write_title("施工中","");
+//     hide_searchbar();
+//     $("#Undefined").css("display","block");
+// }
+// function Order_Management(){
+//     clear_window();
+//     write_title("施工中","");
+//     hide_searchbar();
+//     $("#Undefined").css("display","block");
+// }
+// function Unloading_Management(){
+//     clear_window();
+//     write_title("施工中","");
+//     hide_searchbar();
+//     $("#Undefined").css("display","block");
+// }
+// function Order_Audit(){
+//     clear_window();
+//     write_title("施工中","");
+//     hide_searchbar();
+//     $("#Undefined").css("display","block");
+// }
+// function AD_Conf(){
+//     clear_window();
+//     write_title("施工中","");
+//     hide_searchbar();
+//     $("#Undefined").css("display","block");
+// }
+// function WEB_Conf(){
+//     clear_window();
+//     write_title("施工中","");
+//     hide_searchbar();
+//     $("#Undefined").css("display","block");
+// }
+// function key_auth(){
+//     clear_window();
+//     write_title("钥匙授权","");
+//     $("#KeyAuthView").css("display","block");
+//     key_auth_initialize();
+// }
+// function key_history(){
+//     clear_window();
+//     write_title("开锁历史查询","请输入查询条件");
+//     $("#KeyHistoryView").css("display","block");
+//     key_history_initialize();
+// }
 
-}
-function show_table_tags(){
-	$('#Warning_'+alarm_type_list[0].id+'_day').css('display','block');
-}
-function show_table_tags2(){
-    alarm_interval_tab = '#Warning_'+alarm_type_list[0].id+'_month2';
-    $('#Warning_'+alarm_type_list[0].id+'_month2').css('display','block');
-}
-function show_table_tags3(){
-    if(alarm_interval_tab === null){
-        $('#Warning_'+alarm_type_list[0].id+'_minute2').css('display','block');
-
-        alarm_interval_tab = '#Warning_'+alarm_type_list[0].id+'_minute2';
-    }else{
-        $tail = alarm_interval_tab.split('_');
-        if($tail[2] === "day2"||$tail[2] === "week2" ||$tail[2] === "month2"){
-            $("#Alarm_chart_view2").css('display','block');
-            $("#Alarm_chart_realtime_view2").css('display','none');
-        }else{
-            $("#Alarm_chart_view2").css('display','none');
-            $("#Alarm_chart_realtime_view2").css('display','block');
-
-        }
-        $(alarm_interval_tab).css('display','block');
-    }
-}
-function user_manager(){
-    clear_window();
-    write_title("用户管理","根据您的权限对用户进行添加/删除/修改等操作");
-    $("#UserManageView").css("display","block");
-    show_searchbar();
-    if(!user_initial){ user_intialize(0);}
-}
-function pg_manage(){
-    clear_window();
-    write_title("项目组管理","根据您的权限对项目组进行添加/删除/修改等操作");
-    $("#PGManageView").css("display","block");
-    show_searchbar();
-    if(!pg_initial){ pg_intialize(0);}
-}
-function key_manage(){
-    clear_window();
-    write_title("钥匙管理","根据您的权限对项目组进行添加/删除/修改等操作");
-    $("#KeyManageView").css("display","block");
-    show_searchbar();
-    if(!key_initial){ key_intialize(0);}
-}
-function proj_manage(){
-    clear_window();
-    write_title("项目管理","根据您的权限对项目进行添加/删除/修改等操作");
-    $("#ProjManageView").css("display","block");
-    show_searchbar();
-    proj_intialize(0);
-}
-function para_manage(){
-    clear_window();
-    write_title("参数管理","您可以在这里升级您的设备版本");
-    $("#ParaManageView").css("display","block");
-    hide_searchbar();
-    if(!parameter_initial)parameter_initialize();
-}
-function mp_manage(){
-    clear_window();
-    write_title("站点管理","根据您的权限对站点进行配置");
-    $("#MPManageView").css("display","block");
-    show_searchbar();
-    if(!point_initial){ point_intialize(0);}
-}
-function dev_manage(){
-    clear_window();
-    write_title("设备管理","根据您的权限对设备进行配置");
-    $("#DevManageView").css("display","block");
-    show_searchbar();
-    if(!device_initial){ dev_intialize(0);}
-}
-function mp_monitor(){
-    clear_window();
-    write_title("地图监控","在地图上对站点进行监控");
-    CURRENT_URL = "MPMonitor";
-    $("#MPMonitorView").css("display","block");
-    console.log("into map:"+map_initialized);
-    hide_searchbar();
-    initializeMap();
-}
-function mp_monitor_table(){
-    clear_window();
-    write_title("站点聚合","实时刷新");
-    $("#MPMonitorTableView").css("display","block");
-    hide_searchbar();
-    if(!Monitor_table_initialized)initialize_warning_table();
-
-}
-function mp_monitor_card(){
-    clear_window();
-    write_title("站点列块","点选设备卡片以获得详细信息");
-    hide_searchbar();
-    $("#MPMonitorCardView").css("display","block");
-}
-function mp_static_monitor_table(){
-    clear_window();
-    write_title("站点聚合","请手工刷新");
-    $("#MPMonitorStaticTableView").css("display","block");
-    hide_searchbar();
-    query_static_warning();
-
-}
-function warning_check(){
-    clear_window();
-    write_title("告警查看","可以导出报表");
-    $("#WarningCheckView").css("display","block");
-    hide_searchbar();
-    if(!alarm_map_initialized)initializeAlarmMap();
-}
-function warning_handle(){
-    clear_window();
-    $("#WarningHandleView").css("display","block");
-    write_title("告警处理","请查看报表");
-    hide_searchbar();
-    //query_warning_handle_list();
-    warning_handle_initialize();
-}
-function desktop(){
-    clear_window();
-    hide_searchbar();
-    write_title("欢迎","请选择您需要的功能");
-    $("#Desktop").css("display","block");
-
-
-
-}
-
-
-function Inst_Conf(){
-    clear_window();
-    write_title("施工中","");
-    hide_searchbar();
-    $("#Undefined").css("display","block");
-}
-function Inst_Read(){
-    clear_window();
-    write_title("施工中","");
-    hide_searchbar();
-    $("#Undefined").css("display","block");
-}
-function Inst_Design(){
-    clear_window();
-    write_title("施工中","");
-    hide_searchbar();
-    $("#Undefined").css("display","block");
-}
-function Inst_Control(){
-    clear_window();
-    write_title("施工中","");
-    hide_searchbar();
-    $("#Undefined").css("display","block");
-}
-function Inst_Snapshot(){
-    clear_window();
-    write_title("施工中","");
-    hide_searchbar();
-    $("#Undefined").css("display","block");
-}
-function Inst_Video(){
-    clear_window();
-    write_title("施工中","");
-    hide_searchbar();
-    $("#Undefined").css("display","block");
-}
-function Audit_Target(){
-    clear_window();
-    write_title("施工中","");
-    hide_searchbar();
-    $("#Undefined").css("display","block");
-}
-function Audit_Stability(){
-    clear_window();
-    write_title("稳定性统计","请手工刷新");
-    hide_searchbar();
-    $("#AuditStabilityView").css("display","block");
-    query_audit_stability();
-}
-function Audit_Availability(){
-    clear_window();
-    write_title("施工中","");
-    hide_searchbar();
-    $("#Undefined").css("display","block");
-}
-function Audit_Error(){
-    clear_window();
-    write_title("施工中","");
-    hide_searchbar();
-    $("#Undefined").css("display","block");
-}
-function Audit_Quality(){
-    clear_window();
-    write_title("施工中","");
-    hide_searchbar();
-    $("#Undefined").css("display","block");
-}
-function Geo_InfoQuery(){
-    clear_window();
-    CURRENT_URL="Undefined";
-    write_title("施工中","");
-    hide_searchbar();
-    $("#Undefined").css("display","block");
-}
-function Geo_TrendAnalysis(){
-    clear_window();
-    CURRENT_URL="Undefined";
-    write_title("施工中","");
-    hide_searchbar();
-    $("#Undefined").css("display","block");
-}
-function Geo_DisaterForecast(){
-    clear_window();
-    CURRENT_URL="Undefined";
-    write_title("施工中","");
-    hide_searchbar();
-    $("#Undefined").css("display","block");
-}
-function Geo_EmergencyDirect(){
-    clear_window();
-    write_title("施工中","");
-    hide_searchbar();
-    $("#Undefined").css("display","block");
-}
-function Geo_DiffusionAnalysis(){
-    clear_window();
-    write_title("施工中","");
-    hide_searchbar();
-    $("#Undefined").css("display","block");
-}
-function Work_flowDesign(){
-    clear_window();
-    write_title("施工中","");
-    hide_searchbar();
-    $("#Undefined").css("display","block");
-}
-function Order_Management(){
-    clear_window();
-    write_title("施工中","");
-    hide_searchbar();
-    $("#Undefined").css("display","block");
-}
-function Unloading_Management(){
-    clear_window();
-    write_title("施工中","");
-    hide_searchbar();
-    $("#Undefined").css("display","block");
-}
-function Order_Audit(){
-    clear_window();
-    write_title("施工中","");
-    hide_searchbar();
-    $("#Undefined").css("display","block");
-}
-function AD_Conf(){
-    clear_window();
-    write_title("施工中","");
-    hide_searchbar();
-    $("#Undefined").css("display","block");
-}
-function WEB_Conf(){
-    clear_window();
-    write_title("施工中","");
-    hide_searchbar();
-    $("#Undefined").css("display","block");
-}
-function key_auth(){
-    clear_window();
-    write_title("钥匙授权","");
-    $("#KeyAuthView").css("display","block");
-    key_auth_initialize();
-}
-function key_history(){
-    clear_window();
-    write_title("开锁历史查询","请输入查询条件");
-    $("#KeyHistoryView").css("display","block");
-    key_history_initialize();
-}
-
-function clear_window(){
-    $("#UserManageView").css("display","none");
-    $("#PGManageView").css("display","none");
-    $("#ProjManageView").css("display","none");
-    $("#ParaManageView").css("display","none");
-    $("#MPManageView").css("display","none");
-    $("#DevManageView").css("display","none");
-    $("#MPMonitorView").css("display","none");
-    $("#MPMonitorTableView").css("display","none");
-    $("#MPMonitorCardView").css("display","none");
-    $("#MPMonitorStaticTableView").css("display","none");
-    $("#WarningCheckView").css("display","none");
-    $("#WarningHandleView").css("display","none");
-    $("#Desktop").css("display","none");
-    $("#Undefined").css("display","none");
-    $("#KeyManageView").css("display","none");
-    $("#KeyHistoryView").css("display","none");
-    $("#KeyAuthView").css("display","none");
-    $("#AuditStabilityView").css("display","none");
-}
+// function clear_window(){
+//     $("#UserManageView").css("display","none");
+//     $("#PGManageView").css("display","none");
+//     $("#ProjManageView").css("display","none");
+//     $("#ParaManageView").css("display","none");
+//     $("#MPManageView").css("display","none");
+//     $("#DevManageView").css("display","none");
+//     $("#MPMonitorView").css("display","none");
+//     $("#MPMonitorTableView").css("display","none");
+//     $("#MPMonitorCardView").css("display","none");
+//     $("#MPMonitorStaticTableView").css("display","none");
+//     $("#WarningCheckView").css("display","none");
+//     $("#WarningHandleView").css("display","none");
+//     $("#Desktop").css("display","none");
+//     $("#Undefined").css("display","none");
+//     $("#KeyManageView").css("display","none");
+//     $("#KeyHistoryView").css("display","none");
+//     $("#KeyAuthView").css("display","none");
+//     $("#AuditStabilityView").css("display","none");
+// }
 
 
 /**
  * User view function part
  */
-function get_project_pg_list(){
-    var map={
-        action:"ProjectPGList",
-        type:"query",
-        user:usr.id
-    };
-	var get_project_pg_list_callback = function(result){
-		if(result.status == "false"){
-            show_expiredModule();
-            return;
-        }
-        project_pg_list = result.ret;
-	};
-	JQ_get(request_head,map,get_project_pg_list_callback);
-}
-function get_user_table(start,length){
-    var body = {
-        startseq: start,
-        length:length,
-        keyword: global_key_word
-    };
-    var map={
-        action:"UserTable",
-        type:"query",
-        body: body,
-        user:usr.id
-    };
-	var get_user_table_callback=function(result){
-		if(result.status == "false"){
-            show_expiredModule();
-            return;
-        }
-        user_table = result.ret.usertable;
-
-        user_start = parseInt(result.ret.start);
-        user_total = parseInt(result.ret.total);
-
-        //HYj add for server slow
-        draw_user_table_head();
-	};
-	JQ_get(request_head,map,get_user_table_callback);
-}
+// function get_project_pg_list(){
+//     var map={
+//         action:"ProjectPGList",
+//         type:"query",
+//         user:usr.id
+//     };
+// 	var get_project_pg_list_callback = function(result){
+// 		if(result.status == "false"){
+//             show_expiredModule();
+//             return;
+//         }
+//         project_pg_list = result.ret;
+// 	};
+// 	JQ_get(request_head,map,get_project_pg_list_callback);
+// }
+// function get_user_table(start,length){
+//     var body = {
+//         startseq: start,
+//         length:length,
+//         keyword: global_key_word
+//     };
+//     var map={
+//         action:"UserTable",
+//         type:"query",
+//         body: body,
+//         user:usr.id
+//     };
+//     var get_user_table_callback=function(result){
+//         if(result.status == "false"){
+//             show_expiredModule();
+//             return;
+//         }
+//         user_table = result.ret.usertable;
+//
+//         user_start = parseInt(result.ret.start);
+//         user_total = parseInt(result.ret.total);
+//
+//         //HYj add for server slow
+//         draw_user_table_head();
+//     };
+//     JQ_get(request_head,map,get_user_table_callback);
+// }
 function del_user(id){
     var body = {
         userid: id
@@ -1857,27 +1852,27 @@ function modify_user(user,auth){
 
 
 
-function get_user_proj(user){
-    var body = {
-        userid: user
-    };
-    var map={
-        action:"UserProj",
-        body:body,
-        type:"query",
-        user:usr.id
-    };
-	var get_user_proj_callback = function(result){
-		if(result.status == "false"){
-            show_expiredModule();
-            return;
-        }
-        user_selected_auth = result.ret;
-        //HYJ add for server slow;
-        draw_user_detail_proj_table();
-	};
-	JQ_get(request_head,map,get_user_proj_callback);
-}
+// function get_user_proj(user){
+//     var body = {
+//         userid: user
+//     };
+//     var map={
+//         action:"UserProj",
+//         body:body,
+//         type:"query",
+//         user:usr.id
+//     };
+// 	var get_user_proj_callback = function(result){
+// 		if(result.status == "false"){
+//             show_expiredModule();
+//             return;
+//         }
+//         user_selected_auth = result.ret;
+//         //HYJ add for server slow;
+//         draw_user_detail_proj_table();
+// 	};
+// 	JQ_get(request_head,map,get_user_proj_callback);
+// }
 function get_user_key(user){
     var body = {
         userid: user
@@ -1899,62 +1894,62 @@ function get_user_key(user){
 	};
 	JQ_get(request_head,map,get_user_key_callback);
 }
-function user_intialize(start) {
-    user_initial = true;
-    user_table = null;
-    get_user_table(start, table_row * 5);
-    get_project_pg_list();
-}
-function draw_user_table_head(){
-    if(null === user_table)return;
-    var page_number = Math.ceil((user_table.length)/table_row);
-
-    $("#User_Page_control").empty();
-    var txt = "<li>"+
-        "<a href='#' id='user_page_prev'>Prev</a>"+
-        "</li>";
-    var page_start_number = Math.ceil(user_start/table_row);
-	var i;
-    for(i=0;i<page_number;i++){
-        txt=txt+ "<li>"+
-            "<a href='#' id='user_page_"+i+"'>"+(i+page_start_number+1)+"</a>"+
-            "</li>";
-    }
-    txt=txt+"<li>"+
-        "<a href='#' id='user_page_next'>Next</a>"+
-        "</li>";
-    $("#User_Page_control").append(txt);
-    table_head="<thead>"+
-        "<tr>"+"<th>序号</th>"+"<th>用户名</th>"+"<th>昵称</th>"+"<th>电话</th>"+"<th>属性</th>"+"<th>更新日期</th>";
-    table_head=table_head+"</tr></thread>";
-	click_draw_user_table = function(){
-		draw_user_table($(this));
-	};
-    for(i=0;i<page_number;i++){
-		$("#user_page_"+i).on('click',click_draw_user_table);
-    }
-    if(user_start<=0){
-        $("#user_page_prev").css("display","none");
-    }else{
-        $("#user_page_prev").css("display","block");
-        $("#user_page_prev").on('click',function(){
-            var new_start = user_start-(table_row*5);
-            if(new_start<0) new_start =0;
-            user_intialize(new_start);
-        });
-    }
-
-    if((user_start+(table_row*5))>=user_total){
-        $("#user_page_next").css("display","none");
-    }else{
-        $("#user_page_next").css("display","block");
-        $("#user_page_next").on('click',function(){
-            user_intialize(user_start+(table_row*5));
-        });
-    }
-
-    draw_user_table($("#user_page_0"));
-}
+// function user_intialize(start) {
+//     user_initial = true;
+//     user_table = null;
+//     get_user_table(start, table_row * 5);
+//     get_project_pg_list();
+// }
+// function draw_user_table_head(){
+//     if(null === user_table)return;
+//     var page_number = Math.ceil((user_table.length)/table_row);
+//
+//     $("#User_Page_control").empty();
+//     var txt = "<li>"+
+//         "<a href='#' id='user_page_prev'>Prev</a>"+
+//         "</li>";
+//     var page_start_number = Math.ceil(user_start/table_row);
+// 	var i;
+//     for(i=0;i<page_number;i++){
+//         txt=txt+ "<li>"+
+//             "<a href='#' id='user_page_"+i+"'>"+(i+page_start_number+1)+"</a>"+
+//             "</li>";
+//     }
+//     txt=txt+"<li>"+
+//         "<a href='#' id='user_page_next'>Next</a>"+
+//         "</li>";
+//     $("#User_Page_control").append(txt);
+//     table_head="<thead>"+
+//         "<tr>"+"<th>序号</th>"+"<th>用户名</th>"+"<th>昵称</th>"+"<th>电话</th>"+"<th>属性</th>"+"<th>更新日期</th>";
+//     table_head=table_head+"</tr></thread>";
+// 	click_draw_user_table = function(){
+// 		draw_user_table($(this));
+// 	};
+//     for(i=0;i<page_number;i++){
+// 		$("#user_page_"+i).on('click',click_draw_user_table);
+//     }
+//     if(user_start<=0){
+//         $("#user_page_prev").css("display","none");
+//     }else{
+//         $("#user_page_prev").css("display","block");
+//         $("#user_page_prev").on('click',function(){
+//             var new_start = user_start-(table_row*5);
+//             if(new_start<0) new_start =0;
+//             user_intialize(new_start);
+//         });
+//     }
+//
+//     if((user_start+(table_row*5))>=user_total){
+//         $("#user_page_next").css("display","none");
+//     }else{
+//         $("#user_page_next").css("display","block");
+//         $("#user_page_next").on('click',function(){
+//             user_intialize(user_start+(table_row*5));
+//         });
+//     }
+//
+//     draw_user_table($("#user_page_0"));
+// }
 function get_user_level(level){
     if (level =="0") return "管理员";
     if (level =="1") return "高级用户";
@@ -1963,122 +1958,121 @@ function get_user_level(level){
     if (level =="4") return "三级用户";
     return "未知级别";
 }
-function draw_user_table(data){
-
-    $("#Table_user").empty();
-    if(null === user_table) return;
-    var sequence = (parseInt(data.html())-1)*table_row-user_start;
-    var txt = table_head;
-    txt = txt +"<tbody>";
-	var i;
-    for(i=0;i<table_row;i++){
-        if((sequence+i)<user_table.length){
-            if(0!==i%2){
-                txt =txt+ "<tr class='success li_menu' id='table_cell"+i+"' userid='"+user_table[sequence+i].id+"'>";
-            }else{ txt =txt+ "<tr class='li_menu' id='table_cell"+i+"' userid='"+user_table[sequence+i].id+"'>";}
-            txt = txt +"<td>" + user_table[sequence+i].id+"</td>" +"<td>" + user_table[sequence+i].name+"</td>" +"<td>" + user_table[sequence+i].nickname+"</td>" +"<td>" + user_table[sequence+i].mobile+"</td>";
-            txt = txt+"<td>"+get_user_level(user_table[sequence+i].type)+"</td>";
-            txt = txt +"<td>" + user_table[sequence+i].date+"</td>";
-
-            txt = txt +"</tr>";
-        }else{
-            if(0!==i%2){
-                txt =txt+ "<tr class='success' id='table_cell"+i+"' userid='null'>";
-            }else{ txt =txt+ "<tr  id='table_cell"+i+"' userid='null'>";}
-            txt = txt +"<td>--</td>" +"<td>--</td>" +"<td>--</td>" +"<td>--</td>" +"<td>--</td>" +"<td>--</td>";
-            txt = txt +"</tr>";
-        }
-
-    }
-    txt = txt+"</tbody>";
-
-    $("#Table_user").append(txt);
-	table_cell_click = function(){
-		if($(this).attr("userid") !="null"){
-                for(var i=0;i<user_table.length;i++){
-                    if($(this).attr("userid") == user_table[i].id){
-                        user_selected =user_table[i];
-                        break;
-                    }
-                }
-
-                Initialize_user_detail();
-                touchcookie();
-            }
-	};
-    for(i=0;i<table_row;i++){
-		$("#table_cell"+i).on('click',table_cell_click);
-    }
-
-}
-function Initialize_user_detail(){
-
-    draw_user_detail_panel();
-    get_user_proj(user_selected.id);
-}
-function clear_user_detail_panel(){
-    user_selected = null;
-    var txt = "<p></p><p></p>"+
-        "<div class='col-md-6 col-sm-6 col-xs-12 column'>"+
-        "<dl >"+
-        "<dt >用户名：</dt><dd>&nbsp&nbsp&nbsp&nbsp</dd>"+
-        "<dt >用户类型：</dt><dd>&nbsp&nbsp&nbsp&nbsp</dd>"+
-        "<dt >联系方式：</dt><dd>&nbsp&nbsp&nbsp&nbsp</dd>"+
-        "</dl>"+
-        "</div>"+
-        "<div class='col-md-6 col-sm-6 col-xs-12 column'>"+
-        "<dl >"+
-        "<dt>用户昵称：</dt><dd>&nbsp&nbsp&nbsp&nbsp</dd>"+
-        "<dt>修改日期：</dt><dd>&nbsp&nbsp&nbsp&nbsp</dd>"+
-        "<dt>邮箱：</dt><dd>&nbsp&nbsp&nbsp&nbsp</dd>"+
-        "</dl>"+
-        "</div>"+
-        "<div class='col-md-12 col-sm-12 col-xs-12 column'>"+
-        "<dl >"+
-        "<dt>备注：</dt><dd>&nbsp&nbsp&nbsp&nbsp</dd>"+
-        "</dl>"+
-        "</div>";
-
-    $("#Label_user_detail").empty();
-    $("#Label_user_detail").append(txt);
-    $("#Table_user_authed").empty();
-}
-function draw_user_detail_panel(){
-    $("#Label_user_detail").empty();
-    if(user_selected_auth === null) return;
-    var usertype=get_user_level(user_selected.type);
-    var txt = "<p></p><p></p>"+
-        "<div class='col-md-6 col-sm-6 col-xs-12 column'>"+
-        "<dl >"+
-        "<dt >用户名：</dt><dd>"+user_selected.name+"</dd>"+
-        "<dt >用户类型：</dt><dd>"+usertype+"</dd>"+
-        "<dt >联系方式：</dt><dd>"+user_selected.mobile+"</dd>"+
-        "</dl>"+
-        "</div>"+
-        "<div class='col-md-6 col-sm-6 col-xs-12 column'>"+
-        "<dl >"+
-        "<dt>用户昵称：</dt><dd>"+user_selected.nickname+"</dd>"+
-        "<dt>修改日期：</dt><dd>"+user_selected.date+"</dd>"+
-        "<dt>邮箱：</dt><dd>"+user_selected.mail+"</dd>"+
-        "</dl>"+
-        "</div>"+
-        "<div class='col-md-12 col-sm-12 col-xs-12 column'>"+
-        "<dl >"+
-        "<dt>备注：</dt><dd>"+user_selected.memo+"</dd>"+
-        "</dl>"+
-        "</div>";
-    $("#Label_user_detail").append(txt);
-
-}
-function draw_user_detail_proj_table(){
-    $("#Table_user_authed").empty();
-    txt ="<thead> <tr> <th>已关联项目 </th> </tr> </thead> <tbody >";
-    for(var i=0;i<user_selected_auth.length;i++){
-        txt = txt + "<tr> <td>"+ user_selected_auth[i].name+"</td> </tr>";
-    }
-    txt = txt+ "</tbody>";
-    $("#Table_user_authed").append(txt);
-}
+// function draw_user_table(data){
+//
+//     $("#Table_user").empty();
+//     if(null === user_table) return;
+//     var sequence = (parseInt(data.html())-1)*table_row-user_start;
+//     var txt = table_head;
+//     txt = txt +"<tbody>";
+// 	var i;
+//     for(i=0;i<table_row;i++){
+//         if((sequence+i)<user_table.length){
+//             if(0!==i%2){
+//                 txt =txt+ "<tr class='success li_menu' id='table_cell"+i+"' userid='"+user_table[sequence+i].id+"'>";
+//             }else{ txt =txt+ "<tr class='li_menu' id='table_cell"+i+"' userid='"+user_table[sequence+i].id+"'>";}
+//             txt = txt +"<td>" + user_table[sequence+i].id+"</td>" +"<td>" + user_table[sequence+i].name+"</td>" +"<td>" + user_table[sequence+i].nickname+"</td>" +"<td>" + user_table[sequence+i].mobile+"</td>";
+//             txt = txt+"<td>"+get_user_level(user_table[sequence+i].type)+"</td>";
+//             txt = txt +"<td>" + user_table[sequence+i].date+"</td>";
+//
+//             txt = txt +"</tr>";
+//         }else{
+//             if(0!==i%2){
+//                 txt =txt+ "<tr class='success' id='table_cell"+i+"' userid='null'>";
+//             }else{ txt =txt+ "<tr  id='table_cell"+i+"' userid='null'>";}
+//             txt = txt +"<td>--</td>" +"<td>--</td>" +"<td>--</td>" +"<td>--</td>" +"<td>--</td>" +"<td>--</td>";
+//             txt = txt +"</tr>";
+//         }
+//
+//     }
+//     txt = txt+"</tbody>";
+//
+//     $("#Table_user").append(txt);
+// 	table_cell_click = function(){
+// 		if($(this).attr("userid") !="null"){
+//                 for(var i=0;i<user_table.length;i++){
+//                     if($(this).attr("userid") == user_table[i].id){
+//                         user_selected =user_table[i];
+//                         break;
+//                     }
+//                 }
+//
+//                 Initialize_user_detail();
+//                 touchcookie();
+//             }
+// 	};
+//     for(i=0;i<table_row;i++){
+// 		$("#table_cell"+i).on('click',table_cell_click);
+//     }
+//
+// }
+// function Initialize_user_detail(){
+//
+//     draw_user_detail_panel();
+//     get_user_proj(user_selected.id);
+// }
+// function clear_user_detail_panel(){
+//     user_selected = null;
+//     var txt = "<p></p><p></p>"+
+//         "<div class='col-md-6 col-sm-6 col-xs-12 column'>"+
+//         "<dl >"+
+//         "<dt >用户名：</dt><dd>&nbsp&nbsp&nbsp&nbsp</dd>"+
+//         "<dt >用户类型：</dt><dd>&nbsp&nbsp&nbsp&nbsp</dd>"+
+//         "<dt >联系方式：</dt><dd>&nbsp&nbsp&nbsp&nbsp</dd>"+
+//         "</dl>"+
+//         "</div>"+
+//         "<div class='col-md-6 col-sm-6 col-xs-12 column'>"+
+//         "<dl >"+
+//         "<dt>用户昵称：</dt><dd>&nbsp&nbsp&nbsp&nbsp</dd>"+
+//         "<dt>修改日期：</dt><dd>&nbsp&nbsp&nbsp&nbsp</dd>"+
+//         "<dt>邮箱：</dt><dd>&nbsp&nbsp&nbsp&nbsp</dd>"+
+//         "</dl>"+
+//         "</div>"+
+//         "<div class='col-md-12 col-sm-12 col-xs-12 column'>"+
+//         "<dl >"+
+//         "<dt>备注：</dt><dd>&nbsp&nbsp&nbsp&nbsp</dd>"+
+//         "</dl>"+
+//         "</div>";
+//
+//     $("#Label_user_detail").empty();
+//     $("#Label_user_detail").append(txt);
+//     $("#Table_user_authed").empty();
+// }
+// function draw_user_detail_panel(){
+//     $("#Label_user_detail").empty();
+//     if(user_selected_auth === null) return;
+//     var usertype=get_user_level(user_selected.type);
+//     var txt = "<p></p><p></p>"+
+//         "<div class='col-md-6 col-sm-6 col-xs-12 column'>"+
+//         "<dl >"+
+//         "<dt >用户名：</dt><dd>"+user_selected.name+"</dd>"+
+//         "<dt >用户类型：</dt><dd>"+usertype+"</dd>"+
+//         "<dt >联系方式：</dt><dd>"+user_selected.mobile+"</dd>"+
+//         "</dl>"+
+//         "</div>"+
+//         "<div class='col-md-6 col-sm-6 col-xs-12 column'>"+
+//         "<dl >"+
+//         "<dt>用户昵称：</dt><dd>"+user_selected.nickname+"</dd>"+
+//         "<dt>修改日期：</dt><dd>"+user_selected.date+"</dd>"+
+//         "<dt>邮箱：</dt><dd>"+user_selected.mail+"</dd>"+
+//         "</dl>"+
+//         "</div>"+
+//         "<div class='col-md-12 col-sm-12 col-xs-12 column'>"+
+//         "<dl >"+
+//         "<dt>备注：</dt><dd>"+user_selected.memo+"</dd>"+
+//         "</dl>"+
+//         "</div>";
+//     $("#Label_user_detail").append(txt);
+// }
+// function draw_user_detail_proj_table(){
+//     $("#Table_user_authed").empty();
+//     txt ="<thead> <tr> <th>已关联项目 </th> </tr> </thead> <tbody >";
+//     for(var i=0;i<user_selected_auth.length;i++){
+//         txt = txt + "<tr> <td>"+ user_selected_auth[i].name+"</td> </tr>";
+//     }
+//     txt = txt+ "</tbody>";
+//     $("#Table_user_authed").append(txt);
+// }
 function draw_user_detail_key_table(){
     $("#Table_user_key").empty();
     txt ="<thead> <tr> <th>钥匙名称 </th> <th>归属项目 </th></tr> </thead> <tbody >";
@@ -2095,38 +2089,38 @@ function draw_user_detail_key_table(){
         }
     });
 }
-function show_new_user_module(){
-
-    $("#newModalLabel").text("创建新用户");
-    user_module_status = true;
-    $("#NewUsername_Input").val("");
-    $("#NewUserNick_Input").val("");
-    $("#NewPassword_Input").val("");
-    $("#NewRePassword_Input").val("");
-    $("#NewUserMobile_Input").val("");
-    $("#NewUserMail_Input").val("");
-    $("#NewUserMemo_Input").val("");
-    $("#NewUserType_choice").val("false");
-    $("#NewUsername_Input").attr("placeholder","用户名");
-    $("#NewPassword_Input").attr("placeholder","密码");
-    $("#NewRePassword_Input").attr("placeholder","重复密码");
-    $("#NewUserMobile_Input").attr("placeholder","电话号码");
-    $("#NewUserMail_Input").attr("placeholder","邮箱");
-
-    $("#duallistboxUserAuth_new").empty();
-    var txt = "";
-    if(project_pg_list === null) project_pg_list = [];
-    for(var i =0;i<project_pg_list.length;i++){
-        txt = "<option value='"+project_pg_list[i].id+"'>"+project_pg_list[i].name+"</option>";
-        $("#duallistboxUserAuth_new").append(txt);
-    }
-    $('.NewUserAuthDual').bootstrapDualListbox('refresh', true);
-
-    modal_middle($('#newUserModal'));
-
-    $('#newUserModal').modal('show');
-
-}
+// function show_new_user_module(){
+//
+//     $("#newModalLabel").text("创建新用户");
+//     user_module_status = true;
+//     $("#NewUsername_Input").val("");
+//     $("#NewUserNick_Input").val("");
+//     $("#NewPassword_Input").val("");
+//     $("#NewRePassword_Input").val("");
+//     $("#NewUserMobile_Input").val("");
+//     $("#NewUserMail_Input").val("");
+//     $("#NewUserMemo_Input").val("");
+//     $("#NewUserType_choice").val("false");
+//     $("#NewUsername_Input").attr("placeholder","用户名");
+//     $("#NewPassword_Input").attr("placeholder","密码");
+//     $("#NewRePassword_Input").attr("placeholder","重复密码");
+//     $("#NewUserMobile_Input").attr("placeholder","电话号码");
+//     $("#NewUserMail_Input").attr("placeholder","邮箱");
+//
+//     $("#duallistboxUserAuth_new").empty();
+//     var txt = "";
+//     if(project_pg_list === null) project_pg_list = [];
+//     for(var i =0;i<project_pg_list.length;i++){
+//         txt = "<option value='"+project_pg_list[i].id+"'>"+project_pg_list[i].name+"</option>";
+//         $("#duallistboxUserAuth_new").append(txt);
+//     }
+//     $('.NewUserAuthDual').bootstrapDualListbox('refresh', true);
+//
+//     modal_middle($('#newUserModal'));
+//
+//     $('#newUserModal').modal('show');
+//
+// }
 function submit_new_user_module(){
     var new_usr_name = $("#NewUsername_Input").val();
     var new_usr_nick = $("#NewUserNick_Input").val();
@@ -2186,52 +2180,52 @@ function submit_new_user_module(){
     console.log(auth);
     new_user(user,auth);
 }
-function show_mod_user_module(user,user_auth){
-    $("#newModalLabel").text("用户信息修改：密码栏不输入表示不修改密码");
-    user_module_status = false;
-    $("#NewUsername_Input").val(user.name);
-    $("#NewUserNick_Input").val(user.nickname);
-    $("#NewPassword_Input").val("");
-    $("#NewRePassword_Input").val("");
-    $("#NewUserMobile_Input").val(user.mobile);
-    $("#NewUserMail_Input").val(user.mail);
-    $("#NewUserMemo_Input").val(user.memo);
-    $("#NewUsername_Input").attr("placeholder","用户名");
-    $("#NewPassword_Input").attr("placeholder","密码");
-    $("#NewRePassword_Input").attr("placeholder","重复密码");
-    $("#NewUserMobile_Input").attr("placeholder","电话号码");
-    $("#NewUserMail_Input").attr("placeholder","邮箱");
-    /*
-    if(user.type===false) {
-        $("#NewUserType_choice").val("false");
-    }else{
-        $("#NewUserType_choice").val("true");
-    }*/
-    $("#NewUserType_choice").val(user.type);
-
-    $("#duallistboxUserAuth_new").empty();
-    var txt = "";
-    if(project_pg_list === null) project_pg_list = [];
-    for(var i =0;i<project_pg_list.length;i++){
-        txt = "<option value='"+project_pg_list[i].id+"'";
-        for(var j=0;j<user_auth.length;j++){
-            if(user_auth[j].id == project_pg_list[i].id){
-                txt = txt +"selected='selected'";
-                break;
-            }
-        }
-        txt = txt +">"+project_pg_list[i].name+"</option>";
-        $("#duallistboxUserAuth_new").append(txt);
-    }
-    //$("#duallistboxUserAuth_new").append(txt);
-    $('.NewUserAuthDual').bootstrapDualListbox('refresh', true);
-
-
-
-    modal_middle($('#newUserModal'));
-
-    $('#newUserModal').modal('show');
-}
+// function show_mod_user_module(user,user_auth){
+//     $("#newModalLabel").text("用户信息修改：密码栏不输入表示不修改密码");
+//     user_module_status = false;
+//     $("#NewUsername_Input").val(user.name);
+//     $("#NewUserNick_Input").val(user.nickname);
+//     $("#NewPassword_Input").val("");
+//     $("#NewRePassword_Input").val("");
+//     $("#NewUserMobile_Input").val(user.mobile);
+//     $("#NewUserMail_Input").val(user.mail);
+//     $("#NewUserMemo_Input").val(user.memo);
+//     $("#NewUsername_Input").attr("placeholder","用户名");
+//     $("#NewPassword_Input").attr("placeholder","密码");
+//     $("#NewRePassword_Input").attr("placeholder","重复密码");
+//     $("#NewUserMobile_Input").attr("placeholder","电话号码");
+//     $("#NewUserMail_Input").attr("placeholder","邮箱");
+//     /*
+//     if(user.type===false) {
+//         $("#NewUserType_choice").val("false");
+//     }else{
+//         $("#NewUserType_choice").val("true");
+//     }*/
+//     $("#NewUserType_choice").val(user.type);
+//
+//     $("#duallistboxUserAuth_new").empty();
+//     var txt = "";
+//     if(project_pg_list === null) project_pg_list = [];
+//     for(var i =0;i<project_pg_list.length;i++){
+//         txt = "<option value='"+project_pg_list[i].id+"'";
+//         for(var j=0;j<user_auth.length;j++){
+//             if(user_auth[j].id == project_pg_list[i].id){
+//                 txt = txt +"selected='selected'";
+//                 break;
+//             }
+//         }
+//         txt = txt +">"+project_pg_list[i].name+"</option>";
+//         $("#duallistboxUserAuth_new").append(txt);
+//     }
+//     //$("#duallistboxUserAuth_new").append(txt);
+//     $('.NewUserAuthDual').bootstrapDualListbox('refresh', true);
+//
+//
+//
+//     modal_middle($('#newUserModal'));
+//
+//     $('#newUserModal').modal('show');
+// }
 function submit_mod_user_module(){
     var new_usr_name = $("#NewUsername_Input").val();
     var new_usr_nick = $("#NewUserNick_Input").val();
@@ -4058,14 +4052,14 @@ function modify_dev(device){
 
 
 
-function dev_intialize(start) {
-    device_initial = true;
-    device_table = null;
-    get_dev_table(start, table_row * 5);
-    get_project_list();
-    get_proj_point_list();
-    clear_dev_detail_panel();
-}
+// function dev_intialize(start) {
+//     device_initial = true;
+//     device_table = null;
+//     get_dev_table(start, table_row * 5);
+//     get_project_list();
+//     get_proj_point_list();
+//     clear_dev_detail_panel();
+// }
 function draw_dev_table_head(){
     if(null === device_table)return;
     var page_number = Math.ceil((device_table.length)/table_row);
@@ -6263,85 +6257,81 @@ function alarm_addMarker(point){
 
 //Data Export
 
-function Data_export_Normal(title,tablename,condition,filter){
-    $("#TableQueryCondition").css("display","none");
-    $("#ExportTable").empty();
-    $("#TableExportTitle").text(title);
-	var body = {
-		TableName : tablename,
-        Condition: condition,
-        Filter: filter
-	};
-    var map={
-        action:"TableQuery",
-        body:body,
-		type:"query",
-		user:usr.id
-    };
-	var Data_export_Normal_callback = function(result){
-        if(result.status == "false"){
-            show_expiredModule();
-            return;
-        }
-        ColumnName = result.ret.ColumnName;
-        TableData = result.ret.TableData;
-        var txt = "<thead> <tr>";
-		var i;
-        for( i=0;i<ColumnName.length;i++){
-            txt = txt +"<th>"+ColumnName[i]+"</th>";
-        }
-        txt = txt +"</tr></thead>";
-        
-        //txt = txt +"<tfoot><tr>";
-        //for(var i=0;i<ColumnName.length;i++){
-        //    txt = txt +"<th>"+ColumnName[i]+"</th>";
-        //}
-        //txt = txt +"</tr></tfoot>";
-        txt = txt +"<tbody>";
-        for( i=0;i<TableData.length;i++){
-            txt = txt +"<tr>";
-            for(var j=0;j<TableData[i].length;j++){
-                txt = txt +"<td>"+TableData[i][j]+"</td>";
-            }
-            txt = txt +"</tr>";
-        }
-        txt = txt+"</tbody>";
-        $("#ExportTable").append(txt);
-        if(if_table_initialize) $("#ExportTable").DataTable().destroy();
-
-        //console.log(monitor_map_list);
-
-        var show_table  = $("#ExportTable").DataTable( {
-            //dom: 'T<"clear">lfrtip',
-            "scrollY": 200,
-            "scrollCollapse": true,
-
-            "scrollX": true,
-            "searching": false,
-            "autoWidth": true,
-            "lengthChange":false,
-            //bSort: false,
-            //aoColumns: [ { sWidth: "45%" }, { sWidth: "45%" }, { sWidth: "10%", bSearchable: false, bSortable: false } ],
-            dom: 'Bfrtip',
-            buttons: [
-                {
-                    extend: 'excel',
-                    text: '导出到excel',
-                    filename: title+(new Date()).Format("yyyy-MM-dd_hhmmss")
-                }
-            ]
-
-        } );
-        if_table_initialize = true;
-        modal_middle($('#TableExportModule'));
-        $('#TableExportModule').modal('show');
-	};
-	JQ_get(request_head,map,Data_export_Normal_callback);
-
-
-
-
-}
+// function Data_export_Normal(title,tablename,condition,filter){
+//     $("#TableQueryCondition").css("display","none");
+//     $("#ExportTable").empty();
+//     $("#TableExportTitle").text(title);
+// 	var body = {
+// 		TableName : tablename,
+//         Condition: condition,
+//         Filter: filter
+// 	};
+//     var map={
+//         action:"TableQuery",
+//         body:body,
+// 		type:"query",
+// 		user:usr.id
+//     };
+// 	var Data_export_Normal_callback = function(result){
+//         if(result.status == "false"){
+//             show_expiredModule();
+//             return;
+//         }
+//         ColumnName = result.ret.ColumnName;
+//         TableData = result.ret.TableData;
+//         var txt = "<thead> <tr>";
+// 		var i;
+//         for( i=0;i<ColumnName.length;i++){
+//             txt = txt +"<th>"+ColumnName[i]+"</th>";
+//         }
+//         txt = txt +"</tr></thead>";
+//        
+//         //txt = txt +"<tfoot><tr>";
+//         //for(var i=0;i<ColumnName.length;i++){
+//         //    txt = txt +"<th>"+ColumnName[i]+"</th>";
+//         //}
+//         //txt = txt +"</tr></tfoot>";
+//         txt = txt +"<tbody>";
+//         for( i=0;i<TableData.length;i++){
+//             txt = txt +"<tr>";
+//             for(var j=0;j<TableData[i].length;j++){
+//                 txt = txt +"<td>"+TableData[i][j]+"</td>";
+//             }
+//             txt = txt +"</tr>";
+//         }
+//         txt = txt+"</tbody>";
+//         $("#ExportTable").append(txt);
+//         if(if_table_initialize) $("#ExportTable").DataTable().destroy();
+//
+//         //console.log(monitor_map_list);
+//
+//         var show_table  = $("#ExportTable").DataTable( {
+//             //dom: 'T<"clear">lfrtip',
+//             "scrollY": 200,
+//             "scrollCollapse": true,
+//
+//             "scrollX": true,
+//             "searching": false,
+//             "autoWidth": true,
+//             "lengthChange":false,
+//             //bSort: false,
+//             //aoColumns: [ { sWidth: "45%" }, { sWidth: "45%" }, { sWidth: "10%", bSearchable: false, bSortable: false } ],
+//             dom: 'Bfrtip',
+//             buttons: [
+//                 {
+//                     extend: 'excel',
+//                     text: '导出到excel',
+//                     filename: title+(new Date()).Format("yyyy-MM-dd_hhmmss")
+//                 }
+//             ]
+//
+//         } );
+//         if_table_initialize = true;
+//         modal_middle($('#TableExportModule'));
+//         $('#TableExportModule').modal('show');
+// 	};
+// 	JQ_get(request_head,map,Data_export_Normal_callback);
+// }
 function Data_export_alarm() {
 	
     
@@ -6969,26 +6959,26 @@ function thread_sync(sync_key,thread_number,callback){
         pending(Intervalhandle, callback);
     }, 500);
 }
-function show_alarm_module(ifalarm,text,callback){
-    if(ifalarm){
-        $("#UserAlertModalLabel").text("警告");
-        $("#UserAlertModalContent").empty();
-        $("#UserAlertModalContent").append("<strong>警告！</strong>"+text);
-    }else{
-        $("#UserAlertModalLabel").text ("通知");
-        $("#UserAlertModalContent").empty();
-        $("#UserAlertModalContent").append("<strong>通知：</strong>"+text);
-    }
-    modal_middle($('#UserAlarm'));
-    $('#UserAlarm').modal('show');
-    if(callback===null){
-        emptyfunction = function(){};
-        $('#UserAlarm').on('hide.bs.modal',emptyfunction);
-    }else{
-        var countevent = 0 ;
-        $('#UserAlarm').on('hide.bs.modal',function(){ if(++countevent==1){setTimeout(callback, 500);}});
-    }
-}
+// function show_alarm_module(ifalarm,text,callback){
+//     if(ifalarm){
+//         $("#UserAlertModalLabel").text("警告");
+//         $("#UserAlertModalContent").empty();
+//         $("#UserAlertModalContent").append("<strong>警告！</strong>"+text);
+//     }else{
+//         $("#UserAlertModalLabel").text ("通知");
+//         $("#UserAlertModalContent").empty();
+//         $("#UserAlertModalContent").append("<strong>通知：</strong>"+text);
+//     }
+//     modal_middle($('#UserAlarm'));
+//     $('#UserAlarm').modal('show');
+//     if(callback===null){
+//         emptyfunction = function(){};
+//         $('#UserAlarm').on('hide.bs.modal',emptyfunction);
+//     }else{
+//         var countevent = 0 ;
+//         $('#UserAlarm').on('hide.bs.modal',function(){ if(++countevent==1){setTimeout(callback, 500);}});
+//     }
+// }
 
 // function getLocation()
 // {

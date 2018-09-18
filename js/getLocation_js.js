@@ -1,4 +1,3 @@
-
 function write_title(title,sub_titile){
     $("#page_title").empty();
     $("#page_title").append("<h3>"+title+" <small>"+sub_titile+"</small></h3>");
@@ -33,3 +32,39 @@ function active_menu(id){
 $(document).ready(function() {
     console.log("GetLocaltion.js is Start");
 });
+
+
+
+function modal_middle(modal){
+    if(!$BODY.hasClass('nav-md')){
+        $MENU_TOGGLE.click();}
+
+    setTimeout(function () {
+        var _modal = $(modal).find(".modal-dialog");
+        if(parseInt(($(window).height() - _modal.height())/2)>0){
+
+            _modal.animate({'margin-top': parseInt(($(window).height() - _modal.height())/2)}, 300 );
+        }
+    },wait_time_short);
+}
+
+function show_alarm_module(ifalarm,text,callback){
+    if(ifalarm){
+        $("#UserAlertModalLabel").text("警告");
+        $("#UserAlertModalContent").empty();
+        $("#UserAlertModalContent").append("<strong>警告！</strong>"+text);
+    }else{
+        $("#UserAlertModalLabel").text ("通知");
+        $("#UserAlertModalContent").empty();
+        $("#UserAlertModalContent").append("<strong>通知：</strong>"+text);
+    }
+    modal_middle($('#UserAlarm'));
+    $('#UserAlarm').modal('show');
+    if(callback===null){
+        emptyfunction = function(){};
+        $('#UserAlarm').on('hide.bs.modal',emptyfunction);
+    }else{
+        var countevent = 0 ;
+        $('#UserAlarm').on('hide.bs.modal',function(){ if(++countevent==1){setTimeout(callback, 500);}});
+    }
+}
