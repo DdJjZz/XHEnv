@@ -19,14 +19,14 @@ function clear_window(){
     $("#AuditStabilityView").css("display","none");
 }
 
-function dev_intialize(start) {
-    device_initial = true;
-    device_table = null;
-    get_dev_table(start, table_row * 5);
-    get_project_list();
-    get_proj_point_list();
-    clear_dev_detail_panel();
-}
+// function dev_intialize(start) {
+//     device_initial = true;
+//     device_table = null;
+//     get_dev_table(start, table_row * 5);
+//     get_project_list();
+//     get_proj_point_list();
+//     clear_dev_detail_panel();
+// }
 function show_searchbar(){
     global_key_word = "";
     $("#CommonQueryInput").val("");

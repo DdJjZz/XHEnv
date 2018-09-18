@@ -68,3 +68,47 @@ function show_alarm_module(ifalarm,text,callback){
         $('#UserAlarm').on('hide.bs.modal',function(){ if(++countevent==1){setTimeout(callback, 500);}});
     }
 }
+
+function PageInitialize(){
+    get_user_information();
+}
+function get_user_information(){
+    var session = getQueryString("session");
+    var body = {
+        session: session
+    };
+    var map={
+        action:"UserInfo",
+        type:"query",
+        body: body,
+        user:"null"
+    };
+    var get_user_information_callback = function(result){
+        var ret = result.status;
+        if(ret == "false"){
+            show_alarm_module(true,"获取用户失败，请联系管理员",null);
+        }else{
+            usr = result.ret;
+
+            get_alarm_type_list();
+            get_user_message();
+            get_user_image();
+            //hyj add in 20160926 for server very slow
+            //get_monitor_list();
+            nav_check();
+            //get_pm(usr.city);
+            get_sensor_list();
+            get_camera_unit();
+            get_project_list();
+            //getfavoritelist();
+            hide_menu();
+            setTimeout(mp_monitor,wait_time_middle);
+            getshowaction();
+        }
+    };
+    JQ_get(request_head,map,get_user_information_callback);
+
+}
+function on_collapse(data){
+    touchcookie();
+}

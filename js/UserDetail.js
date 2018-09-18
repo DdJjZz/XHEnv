@@ -13,7 +13,6 @@ function draw_user_table(data){
             txt = txt +"<td>" + user_table[sequence+i].id+"</td>" +"<td>" + user_table[sequence+i].name+"</td>" +"<td>" + user_table[sequence+i].nickname+"</td>" +"<td>" + user_table[sequence+i].mobile+"</td>";
             txt = txt+"<td>"+get_user_level(user_table[sequence+i].type)+"</td>";
             txt = txt +"<td>" + user_table[sequence+i].date+"</td>";
-
             txt = txt +"</tr>";
         }else{
             if(0!==i%2){
@@ -22,10 +21,8 @@ function draw_user_table(data){
             txt = txt +"<td>--</td>" +"<td>--</td>" +"<td>--</td>" +"<td>--</td>" +"<td>--</td>" +"<td>--</td>";
             txt = txt +"</tr>";
         }
-
     }
     txt = txt+"</tbody>";
-
     $("#Table_user").append(txt);
     table_cell_click = function(){
         if($(this).attr("userid") !="null"){
@@ -35,7 +32,6 @@ function draw_user_table(data){
                     break;
                 }
             }
-
             Initialize_user_detail();
             touchcookie();
         }
@@ -43,10 +39,8 @@ function draw_user_table(data){
     for(i=0;i<table_row;i++){
         $("#table_cell"+i).on('click',table_cell_click);
     }
-
 }
 function Initialize_user_detail(){
-
     draw_user_detail_panel();
     get_user_proj(user_selected.id);
 }
@@ -93,7 +87,6 @@ function get_user_proj(user){
             return;
         }
         user_selected_auth = result.ret;
-        //HYJ add for server slow;
         draw_user_detail_proj_table();
     };
     JQ_get(request_head,map,get_user_proj_callback);

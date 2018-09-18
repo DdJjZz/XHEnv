@@ -455,9 +455,6 @@ $(document).ready(function() {
             touchcookie();
         }
     });
-// project view buttons
-
-
     $("#ProjfreshButton").on('click',function(){
         touchcookie();
         clear_proj_detail_panel();
@@ -506,7 +503,6 @@ $(document).ready(function() {
             touchcookie();
         }else{
             submit_mod_proj_module();
-
             touchcookie();
         }
     });
@@ -549,8 +545,6 @@ $(document).ready(function() {
         }
     });
     $("#delPointCommit").on('click',function(){
-        //发送请求并且告知成功失败
-        //刷新表格
         del_point(point_selected.StatCode);
         touchcookie();
     });
@@ -567,8 +561,6 @@ $(document).ready(function() {
             touchcookie();
         }
     });
-
-
 // device view buttons
     $("#DevfreshButton").on('click',function(){
         touchcookie();
@@ -623,7 +615,6 @@ $(document).ready(function() {
             touchcookie();
         }else{
             submit_mod_dev_module();
-
             touchcookie();
         }
     });
@@ -653,9 +644,6 @@ $(document).ready(function() {
                 query_alarm($("#Alarm_query_Input").val(),alarm_type_list[i].id,alarm_type_list[i].name);
             }
         }
-        //window.setTimeout(show_table_tags, wait_time_long);
-
-
     });
     $('#Alarm_query_choice').change(function(){
         var temp = $(this).val();
